@@ -1,0 +1,27 @@
+.dashboard-layout {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+    // z-index: 1;
+
+    .dashboard-layout-bottom{
+        display: flex;
+        height: 100%;
+    }
+  
+    .sidebar {
+      width: 220px;
+      min-width: 220px;
+    //   background-color: #1e1e2f;
+      color: white;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+
+      height: 100%;
+    }
+  
+  }
+  
