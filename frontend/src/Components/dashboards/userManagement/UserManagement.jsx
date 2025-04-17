@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { getUsers } from "../../../api/usersApi";
+import { getUsers, removeUser } from "../../../api/usersApi";
 import { toast } from "react-toastify";
 import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from '@mui/icons-material/Delete';
 import "../../../scss/userManagement.scss";
 
 const UserManagement = () => {
@@ -28,22 +29,36 @@ const UserManagement = () => {
     if (currentPage > 1) setCurrentPage((prev) => prev - 1);
   };
 
-  useEffect(() => {
-    const getUserDetails = async () => {
-      try {
-        const response = await getUsers(usersPerPage, currentPage - 1);
-        console.log(response);
-        setData(response?.data);
-        setUsers(response?.data?.content || []);
-        setTotalPages(response?.data?.totalPages);
-        setLoading(false);
-      } catch (error) {
-        toast.error("Error Occurred");
-        setLoading(false);
-        console.log(error);
+  const getUserDetails = async (usersPerPage,currentPage) => {
+    try {
+      const response = await getUsers(usersPerPage, currentPage - 1);
+      // console.log(response);
+      setData(response?.data);
+      setUsers(response?.data?.content || []);
+      setTotalPages(response?.data?.totalPages);
+      setLoading(false);
+    } catch (error) {
+      toast.error("Error Occurred");
+      setLoading(false);
+      console.log(error);
+    }
+  };
+
+  const handleDelete = async (id) =>{
+    try {
+      const res = await removeUser(id);
+      if(res.status === 200){
+        toast.info("Removed");
+        getUserDetails(usersPerPage,currentPage);
       }
-    };
-    getUserDetails();
+    } catch (error) {
+      toast.error("Error occured");
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    getUserDetails(usersPerPage,currentPage);
   }, [currentPage]);
 
   return (
@@ -88,10 +103,13 @@ const UserManagement = () => {
                     <td>{item?.role}</td>
                     <td>{item?.lastLogin}</td>
                     {role === "ADMIN" && (
-                      <td className="edit-btn">
-                        <NavLink to={`update-user/${item.id}`}>
+                      <td className="btns-td">
+                        <NavLink className="btns" to={`update-user/${item.id}`}>
                           <EditIcon />
                         </NavLink>
+                        <button onClick={()=>handleDelete(item.id)} className="btns" >
+                            <DeleteIcon />
+                        </button>
                       </td>
                     )}
                   </tr>

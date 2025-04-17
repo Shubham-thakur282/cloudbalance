@@ -16,7 +16,6 @@ public interface AccountRepository extends JpaRepository<Accounts,Long> {
     @Query(value = """
             SELECT account_id as accountId,
             account_name as accountName,
-            account_role as accountRole,
             is_orphan as isOrphan
             from accounts
             """,nativeQuery = true)

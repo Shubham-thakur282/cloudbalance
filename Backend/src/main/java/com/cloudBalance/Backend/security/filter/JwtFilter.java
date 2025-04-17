@@ -6,6 +6,9 @@ import com.cloudBalance.Backend.exception.BlackListTokenException;
 import com.cloudBalance.Backend.exception.InvalidTokenException;
 import com.cloudBalance.Backend.repository.BlackListTokenRepository;
 import com.cloudBalance.Backend.security.service.JWTService;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.MalformedJwtException;
+import io.jsonwebtoken.UnsupportedJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -13,6 +16,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -22,6 +26,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.security.SignatureException;
 import java.util.Optional;
 
 @Slf4j
@@ -45,7 +50,7 @@ public class JwtFilter extends OncePerRequestFilter {
                     throw new BlackListTokenException("Token is Invalid");
                 }
                 String email = jwtService.getUsername(token);
-                System.out.println(email);
+//                System.out.println(email);
                 UserPrincipal userPrincipal = (UserPrincipal)
                         userDetailsService.loadUserByUsername(email);
                 UsernamePasswordAuthenticationToken auth =
@@ -59,12 +64,14 @@ public class JwtFilter extends OncePerRequestFilter {
                 log.info("{} has passed token check", email);
             }
             filterChain.doFilter(request, response);
-        } catch (Exception e) {
+        } catch (ExpiredJwtException | MalformedJwtException | UnsupportedJwtException
+                 | IllegalArgumentException | BlackListTokenException e) {
             log.error("Not able to authenticate using jwt token {}", e.getMessage());
             response.setStatus(HttpStatus.UNAUTHORIZED.value());
-            response.getWriter().write("Invalid token");
-//            throw new InvalidTokenException("Invalid token");
+            response.setContentType("application/json");
+            response.getWriter().write("{\"error\": \"Invalid or expired JWT token\"}");
         }
+
     }
 
     private String parseJwt(HttpServletRequest request) {

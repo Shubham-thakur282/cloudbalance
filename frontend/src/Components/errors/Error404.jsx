@@ -1,11 +1,11 @@
 import notFound from "../../assets/notFound.svg";
-import "../../scss/error404.scss";
 import { useNavigate } from "react-router-dom";
+import "../../scss/error404.scss";
 
 const Error404 = () => {
   const navigate = useNavigate();
   const handleClick = () => {
-    navigate("/");
+    navigate("/dashboard");
   };
   return (
     <div className="error-page">

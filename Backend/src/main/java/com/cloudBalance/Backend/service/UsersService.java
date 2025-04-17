@@ -9,5 +9,6 @@ public interface UsersService {
     Page<UsersView> getUsers(int page, int size);
     UserResponseDTO getUser(Long id);
     UserUpdateResponseDTO updateUser(Long id, UserUpdateDTO user);
+    String removeUser(Long id);
 
 }

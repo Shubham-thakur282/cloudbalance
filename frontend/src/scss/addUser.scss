@@ -27,7 +27,7 @@
   form {
     display: flex;
     flex-direction: column;
- 
+
     width: 100%;
     height: 100%;
     background-color: #fafafa;
@@ -68,17 +68,16 @@
         input,
         select {
           width: 100%;
+          height: 40px;
           padding: 0.5rem;
           margin-bottom: 1rem;
-          border: 1px solid #ccc;
-          border-radius: 6px;
+          border: 1px solid black;
+          border-radius: 5px;
         }
 
         button {
           border: none;
           cursor: pointer;
-
-          
         }
 
         ul {
@@ -101,7 +100,7 @@
               border: none;
               cursor: pointer;
               font-size: 1rem;
-              &:hover{
+              &:hover {
                 color: red;
               }
             }
@@ -115,7 +114,8 @@
 
         button {
           margin-top: 2rem;
-          width: 10%;
+          padding: 0 10px;
+          width: 100px;
           height: 40px;
           background-color: #4398d7;
           color: #fff;

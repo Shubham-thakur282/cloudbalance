@@ -74,20 +74,26 @@
           background-color: #f1f5f9;
         }
 
-        .edit-btn {
-          a {
+        .btns-td {
+          display: flex;
+          gap: 5px;
+          .btns {
+            width: 40px;
             padding: 6px 12px;
-            // margin: 0 10px;
             display: flex;
             justify-content: center;
             align-items: center;
             border: none;
-            width: 40px;
+            border-radius: 5px;
+            cursor: pointer;
+          }
+          a {
             background-color: #007bff;
             text-decoration: none;
             color: white;
-            border-radius: 5px;
-            cursor: pointer;
+          }
+          button {
+            color: red;
           }
         }
       }

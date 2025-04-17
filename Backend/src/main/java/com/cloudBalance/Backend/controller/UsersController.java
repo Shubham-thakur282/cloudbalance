@@ -31,7 +31,7 @@ public class UsersController {
         return ResponseEntity.ok(usersService.getUsers(page,size));
     }
 
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PatchMapping("/{id}")
     public ResponseEntity<UserUpdateResponseDTO> updateUser(@PathVariable Long id,
                                                             @RequestBody UserUpdateDTO userUpdateDTO){
@@ -42,6 +42,11 @@ public class UsersController {
     @GetMapping("/{id}")
     public ResponseEntity<UserResponseDTO> getUser(@PathVariable Long id){
         return ResponseEntity.ok(usersService.getUser(id));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> removeUser(@PathVariable Long id){
+        return ResponseEntity.ok(usersService.removeUser(id));
     }
 
 }

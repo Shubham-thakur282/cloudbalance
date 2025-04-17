@@ -45,11 +45,15 @@ public class UsersServiceImpl implements UsersService {
             log.info("User with email {} already exists", userDTO.getEmail());
             throw new UserAlreadyExistException(userDTO.getEmail());
         }
-        userEntity = new Users();
 
         userEntity = EntityDTOMapping.userDTOToEntity(userDTO);
         if (!userDTO.getAccountIds().isEmpty()) {
             List<Accounts> accountsList = accRepo.findAllByAccountIdIn(userDTO.getAccountIds());
+            accountsList.stream().map((a) ->{
+               a.setIsOrphan(false);
+               accRepo.save(a);
+               return a;
+            });
             userEntity.setAccountsList(accountsList);
         }
         userEntity.setPassword(passwordEncoder.encode(userDTO.getPassword()));
@@ -92,8 +96,13 @@ public class UsersServiceImpl implements UsersService {
         user.setName(userUpdateDTO.getName());
         if (!userUpdateDTO.getAccountIds().isEmpty() && "CUSTOMER".equals(role.getRole().name())) {
             List<Accounts> accountsList = accRepo.findAllByAccountIdIn(userUpdateDTO.getAccountIds());
+            accountsList.stream()
+                            .map(a -> {
+                                a.setIsOrphan(false);
+                                accRepo.save(a);
+                                return a;
+                            });
             user.setAccountsList(accountsList);
-
             //setting new accounts of user in response dto
             userUpdateResponseDTO.setAccounts(user.getAccountsList()
                     .stream()
@@ -111,5 +120,13 @@ public class UsersServiceImpl implements UsersService {
         userUpdateResponseDTO.setRole(user.getRole().getRole().name());
 //        userUpdateResponseDTO = EntityDTOMapping.UserEntityToResponseDTO(user);
         return userUpdateResponseDTO;
+    }
+
+    public String removeUser(Long id){
+        Users user = userRepository.findById(id).orElseThrow(
+                () -> new UserNotFound("User with id "+id+" does not exists")
+        );
+        userRepository.delete(user);
+        return "User Removed";
     }
 }

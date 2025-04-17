@@ -20,7 +20,7 @@ public class AccountsController {
     private final AccountsService accountsService;
 
     @PostMapping
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<AccountDTO> createAccount(@Valid @RequestBody AccountDTO accountDTO){
         return ResponseEntity.ok(accountsService.createAccount(accountDTO));
     }

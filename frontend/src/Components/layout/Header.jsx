@@ -1,23 +1,25 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/action";
 import { useNavigate } from "react-router-dom";
 import { logoutUser } from "../../api/usersApi";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LogoutIcon from "@mui/icons-material/Logout";
 import logo from "../../assets/Cloudkeeper.svg";
-import "../../scss/header.scss";
 import { toast } from "react-toastify";
+import "../../scss/header.scss";
 
 const Header = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const {name,refreshToken,accessToken } = useSelector((state) => state);
   const handleClick = async () => {
     
     try {
-        const res = logoutUser({refreshToken,accessToken});
-        logout();
-        toast.success(`${name} logged out`);
         navigate("/login");
+        const res = logoutUser({refreshToken,accessToken});
+        dispatch(logout());
+        toast.success(`${name} logged out`);
+        
     } catch (error) {
         toast.error("Error Occured")
     }

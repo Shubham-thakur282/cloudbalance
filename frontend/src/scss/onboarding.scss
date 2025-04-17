@@ -1,0 +1,174 @@
+.onboarding-wrapper {
+  padding: 20px;
+  overflow-x: scroll;
+  width: 100%;
+  height: 100vh;
+  font-size: 1.2rem;
+  //   margin-bottom: 60px;
+  padding-bottom: 60px;
+
+  .multi-step-container {
+    // padding: 20px;
+    // overflow: scroll;
+    // padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      .list-wrapper {
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+        // display: flex;
+
+        .step-block {
+          margin-bottom: 20px;
+          display: flex;
+          justify-content: start;
+          gap: 20px;
+          min-width: 100%;
+
+          .marker-wrapper {
+            height: 25px;
+            min-width: 25px;
+            max-width: 25px;
+            background-color: #889abe;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            // text-align: center;
+            .marker {
+              //   height: 20px;
+              //   width: 20px;
+              //   padding: 3px;
+              //   border-radius: 40%;
+              //   background-color: #3b82f680;
+              color: #fff;
+            }
+          }
+          .main-text-content {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            svg {
+              color: #0a3ca2;
+            }
+
+            .copy-text-wrapper {
+              .copy-text {
+                height: 40px;
+                min-width: 200px;
+                max-width: 400px;
+                text-align: center;
+                display: flex;
+                justify-content: start;
+                align-items: center;
+                gap: 10px;
+                padding: 10px;
+                border: 1px solid #889abe;
+                border-radius: 5px;
+                background-color: #f9f9f9;
+                cursor: pointer;
+
+                // .copy-button {
+                //   border: "none";
+                //   background: "transparent";
+                //   cursor: "pointer";
+                // }
+              }
+            }
+          }
+          .form-images {
+            // width: 100vw;
+            width: 100%;
+          }
+
+          .json-box-wrapper {
+            // width: 300px;
+            max-height: 200px;
+            overflow: auto;
+            min-width: 100%;
+            color: #0a3ca2;
+            font-weight: 500;
+            background-color: #f9f9f9;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 14px;
+            white-space: pre-wrap;
+            margin: 10px 0;
+          }
+          .input-form {
+            display: flex;
+            justify-content: start;
+            align-items: center;
+            gap: 30px;
+            .arn-input-box {
+              display: flex;
+              flex-direction: column;
+              gap: 5px;
+              min-width: 350px;
+
+              //   border: 1px solid #889abe;
+              input {
+                height: 40px;
+                padding: 0 10px;
+                border-radius: 5px;
+                border: 1px solid black;
+              }
+            }
+          }
+          .submitted-page {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            // height: 50%;
+
+            button{
+              background: none;
+              border: none;
+              font-size: 1rem;
+              text-decoration: underline;
+              color: #0a3ca2;
+              cursor: pointer;
+            }
+            .submitted-page-box2{
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              align-items: center;
+            }
+          }
+        }
+      }
+    }
+    .nav-buttons {
+      height: 30px;
+      display: flex;
+      justify-content: space-between;
+      button {
+        padding: 6px 12px;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: none;
+        width: 60px;
+        background-color: #0a3ca2;
+        text-decoration: none;
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+    }
+  }
+}

@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 const UserForm = ({ initialValues, onSubmit, isEditMode = false }) => {
   const [name, setName] = useState(initialValues?.name || "");
   const [email, setEmail] = useState(initialValues?.email || "");
-  const [password, setPassword] = useState(""); // Not shown in edit mode
+  const [password, setPassword] = useState("");
   const [roleId, setRoleId] = useState(initialValues?.roleId || "");
   const [roles, setRoles] = useState([]);
   const [accounts, setAccounts] = useState([]);
@@ -15,8 +15,6 @@ const UserForm = ({ initialValues, onSubmit, isEditMode = false }) => {
     initialValues?.assignedAccounts || []
   );
   const [isCustomer, setIsCustomer] = useState(false);
-
-  //   console.log(initialValues)
 
   useEffect(() => {
     const fetchRoles = async () => {
@@ -72,16 +70,46 @@ const UserForm = ({ initialValues, onSubmit, isEditMode = false }) => {
     setSelectedAccounts(selectedAccounts.filter((acc) => acc.accountId !== id));
   };
 
+  const validateEmail = (email) =>
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // Basic validations
+    if (name.trim().length < 3) {
+      toast.error("Name must be at least 3 characters");
+      return;
+    }
+
+    if (!isEditMode && !validateEmail(email)) {
+      toast.error("Invalid email format");
+      return;
+    }
+
+    if (!isEditMode && password.trim().length < 6) {
+      toast.error("Password must be at least 6 characters");
+      return;
+    }
+
+    if (!roleId) {
+      toast.error("Please select a role");
+      return;
+    }
+
+    if (isCustomer && selectedAccounts.length === 0) {
+      toast.error("At least one account must be selected for CUSTOMER role");
+      return;
+    }
+
     const userPayload = {
-      name,
-      email,
-      ...(password && { password }), // only include password if set
-      roleId: roleId,
+      name: name.trim(),
+      email: email.trim(),
+      ...(password && { password: password.trim() }),
+      roleId,
       accountIds: selectedAccounts.map((acc) => acc.accountId),
     };
-    // console.log(userPayload)
+
     onSubmit(userPayload);
   };
 
@@ -94,6 +122,7 @@ const UserForm = ({ initialValues, onSubmit, isEditMode = false }) => {
             <input
               type="text"
               value={name}
+              placeholder="Name"
               onChange={(e) => setName(e.target.value)}
               required
             />
@@ -104,6 +133,7 @@ const UserForm = ({ initialValues, onSubmit, isEditMode = false }) => {
               <input
                 type="email"
                 value={email}
+                placeholder="Email"
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
@@ -114,6 +144,7 @@ const UserForm = ({ initialValues, onSubmit, isEditMode = false }) => {
               <label>Password:</label>
               <input
                 type="password"
+                placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required

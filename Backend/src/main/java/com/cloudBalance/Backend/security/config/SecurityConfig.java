@@ -60,7 +60,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOriginPatterns(List.of("*")); // use this instead of setAllosetAllowedOriginswedOrigins(List.of("*")) for Spring Security 6
+        config.setAllowedOriginPatterns(List.of("http://localhost:5173")); // use this instead of setAllosetAllowedOriginswedOrigins(List.of("*")) for Spring Security 6
         config.setAllowedMethods(List.of("*"));        // Allow all HTTP methods
         config.setAllowedHeaders(List.of("*"));        // Allow all headers
         config.setAllowCredentials(true);              // Optional: allow credentials like cookies or Authorization header

@@ -6,6 +6,6 @@ import lombok.Data;
 public class AccountsResponse {
     private Long accountId;
     private String accountName;
-    private String accountRole;
+//    private String accountRole;
     private Boolean isOrphan;
 }

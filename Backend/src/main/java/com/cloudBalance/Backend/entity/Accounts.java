@@ -17,7 +17,7 @@ public class Accounts {
 
     private String accountName;
 
-    private String accountRole;
+//    private String accountRole;
 
     private Boolean isOrphan;
 }

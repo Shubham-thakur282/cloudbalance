@@ -26,18 +26,18 @@ public class AccountsServiceImpl implements AccountsService {
 
     @Override
     @Transactional
-    public AccountDTO createAccount(AccountDTO account) {
+    public AccountDTO createAccount(AccountDTO accountDTO) {
         Optional<Accounts> accountsOptional = accRepo
-                .findByAccountId(account.getAccountId());
+                .findByAccountId(accountDTO.getAccountId());
         if (accountsOptional.isPresent()) {
             throw new AccountAlreadyExistsException
                     ("Account already exists with account id "
-                            + account.getAccountId()
+                            + accountDTO.getAccountId()
                     );
         }
-        Accounts newAccount = EntityDTOMapping.accountDTOToEntity(account);
+        Accounts newAccount = EntityDTOMapping.accountDTOToEntity(accountDTO);
         accRepo.save(newAccount);
-        return account;
+        return accountDTO;
     }
 
     @Override

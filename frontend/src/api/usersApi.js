@@ -24,3 +24,8 @@ export const logoutUser = async (data) => {
   const res = await axiosInstance.post(`/auth/logout`, data);
   return res;
 };
+
+export const removeUser = async (id) => {
+  const res = await axiosInstance.delete(`/users/${id}`);
+  return res;
+};

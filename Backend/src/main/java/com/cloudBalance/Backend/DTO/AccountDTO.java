@@ -11,8 +11,8 @@ public class AccountDTO {
     private Long accountId;
     @NotNull(message = "Account name cannot be null")
     private String accountName;
-    @NotNull(message = "Account role cannot be null")
-    private String accountRole;
+//    @NotNull(message = "Account role cannot be null")
+//    private String accountRole;
 
     private Boolean isOrphan = true;
 }

@@ -15,11 +15,10 @@ import { ToastContainer } from "react-toastify";
 import AddUser from "./Components/dashboards/userManagement/AddUser";
 import UpdateUser from "./Components/dashboards/userManagement/UpdateUser";
 import Onboarding from "./Components/dashboards/onboarding/Onboarding";
-
-//allowedRoles={["ADMIN","READONLY","CUSTOMER"]}
+import GlobalInterceptor from "./Components/errors/GlobalInterceptor";
 
 function App() {
-  const role = useSelector(state => state.role);
+  const {role,permissions} = useSelector((state) => state);
   return (
     <Router>
       <Routes>
@@ -28,28 +27,29 @@ function App() {
 
         <Route element={<ProtectedRoutes />}>
           <Route path="/dashboard" element={<DashboardLayout />}>
-          <Route index element={role === "CUSTOMER" ? <Navigate to="cost-explorer" /> : <Navigate to="users" />} />
-          
-              <Route path="users">
-                <Route index element={<UserManagement />} />
-                <Route path="create-user" element={<AddUser />} />
-                <Route path="update-user/:id" element={<UpdateUser />} />
-              </Route>
+            <Route index
+              element={role === "CUSTOMER" ? (
+                  <Navigate to="cost-explorer" />
+                ) : (
+                  <Navigate to="users" />
+                )}
+            />
+            <Route path="users">
+              <Route index element={<UserManagement />} />
+              <Route path="create-user" element={<AddUser />} />
+              <Route path="update-user/:id" element={<UpdateUser />} />
+            </Route>
 
-              <Route path = "onboarding" element={<Onboarding />} />
-              <Route path="cost-explorer" element={<div>Cost Explorer</div>} />
-              <Route path="aws-services" element={<div>Aws services</div>} />
+            <Route path="onboarding" element={<Onboarding />} />
+            <Route path="cost-explorer" element={<div>Cost Explorer</div>} />
+            <Route path="aws-services" element={<div>Aws services</div>} />
           </Route>
         </Route>
 
         <Route path="*" element={<Error404 />} />
       </Routes>
-
-      <ToastContainer
-        position="top-right"
-        autoClose={3000}
-        theme="colored"
-      />
+      <GlobalInterceptor />
+      <ToastContainer position="top-right" autoClose={3000} theme="colored" />
     </Router>
   );
 }

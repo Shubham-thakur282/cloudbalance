@@ -32,7 +32,6 @@ public class EntityDTOMapping {
         Accounts acc = new Accounts();
         acc.setAccountId(accountDTO.getAccountId());
         acc.setAccountName(accountDTO.getAccountName());
-        acc.setAccountRole(accountDTO.getAccountRole());
         acc.setArn(accountDTO.getArn());
         acc.setIsOrphan(accountDTO.getIsOrphan());
         return acc;
@@ -42,7 +41,6 @@ public class EntityDTOMapping {
         AccountDTO acc = new AccountDTO();
         acc.setAccountId(account.getAccountId());
         acc.setAccountName(account.getAccountName());
-        acc.setAccountRole(account.getAccountRole());
         acc.setArn(account.getArn());
         acc.setIsOrphan(account.getIsOrphan());
         return acc;
@@ -52,7 +50,6 @@ public class EntityDTOMapping {
         AccountsResponse acc = new AccountsResponse();
         acc.setAccountId(accountsView.getAccountId());
         acc.setAccountName(accountsView.getAccountName());
-        acc.setAccountRole(accountsView.getAccountRole());
         acc.setIsOrphan(accountsView.getIsOrphan());
         return acc;
     }
@@ -61,7 +58,6 @@ public class EntityDTOMapping {
         AccountsResponse acc = new AccountsResponse();
         acc.setAccountId(accounts.getAccountId());
         acc.setAccountName(accounts.getAccountName());
-        acc.setAccountRole(accounts.getAccountRole());
         acc.setIsOrphan(accounts.getIsOrphan());
         return acc;
     }

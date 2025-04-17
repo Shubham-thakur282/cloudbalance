@@ -1,17 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import InputBox from "./InputBox";
 import logo from "../../assets/Cloudkeeper.svg";
-import "../../scss/login.scss";
 import Footer from "../footer/Footer";
 import { loginUser } from "../../api/auth";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { login } from "../../redux/action";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
+import "../../scss/login.scss";
 
 const Login = () => {
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { isAuthenticated } = useSelector((state) => state);
   const obj = {
     email: "",
     password: "",
@@ -30,18 +32,24 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-        const res = await loginUser(user,dispatch);
-        console.log("response came from api");
-        console.log(res);
-        dispatch(login(res?.data));
-        toast.success("logged in successfully")
-        navigate("/dashboard");
-        
+      const res = await loginUser(user, dispatch);
+      console.log("response came from api");
+      console.log(res);
+      dispatch(login(res?.data));
+      toast.success("logged in successfully");
+      navigate("/dashboard");
     } catch (error) {
-        toast.error("Error Occured!")
-        console.log(error);
+      toast.error("Error Occured!");
+      console.log(error);
     }
   };
+
+  useEffect(() => {
+    console.log(isAuthenticated);
+    if (isAuthenticated) {
+      navigate("/dashboard");
+    }
+  }, [isAuthenticated]);
 
   return (
     <div className="login-page">

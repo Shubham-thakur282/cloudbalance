@@ -1,11 +1,21 @@
 import { useSelector } from "react-redux";
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate, Outlet,useLocation } from "react-router-dom";
 
 const ProtectedRoutes = () => {
-  const state = useSelector((state) => state);
+  const { isAuthenticated,permissions } = useSelector((state) => state);
+  // const location = useLocation();
 
-  if (!state?.isAuthenticated) return <Navigate to="/login" />;
-  // if(!allowedRoles.includes(state?.role.toString())) return <Navigate to="/unauthorized"/>;
+  // const pathSegments = location.pathname.split("/").filter(Boolean);
+  // const lastSegment = pathSegments[pathSegments.length - 1];
+
+  // const matchedPermission = permissions.find((perm) => perm.permission === lastSegment);
+
+  if (!isAuthenticated) 
+    return <Navigate to="/login" />;
+
+  // if(!matchedPermission && lastSegment !== "dashboard")
+  //   return <Navigate to="/unauthorized" />
+
   return <Outlet />;
 };
 
