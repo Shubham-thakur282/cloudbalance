@@ -1,7 +1,7 @@
 
 import React from "react";
 import UserForm from "./UserForm";
-import { addUser } from "../../../api/usersApi";
+import { addUser } from "../../../service/usersApi";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import "../../../scss/addUser.scss";
@@ -9,7 +9,8 @@ import "../../../scss/addUser.scss";
 const AddUser = () => {
   const navigate = useNavigate();
 
-  const handleAddUser = async (payload) => {
+  const handleAddUser = async (payload,e) => {
+    e.preventDefault();
     try {
       const res = await addUser(payload);
       if (res.status === 200) {

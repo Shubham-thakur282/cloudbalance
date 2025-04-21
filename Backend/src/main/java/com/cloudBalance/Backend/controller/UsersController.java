@@ -38,12 +38,13 @@ public class UsersController {
         return ResponseEntity.ok(usersService.updateUser(id, userUpdateDTO));
     }
 
-
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/{id}")
     public ResponseEntity<UserResponseDTO> getUser(@PathVariable Long id){
         return ResponseEntity.ok(usersService.getUser(id));
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<String> removeUser(@PathVariable Long id){
         return ResponseEntity.ok(usersService.removeUser(id));

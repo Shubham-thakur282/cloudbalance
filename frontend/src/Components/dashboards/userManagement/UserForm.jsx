@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
-import { getRoles } from "../../../api/roleApi";
-import { getAccounts } from "../../../api/accountsApi";
+import { getRoles } from "../../../service/roleApi";
+import { getAccounts } from "../../../service/accountsApi";
 import { toast } from "react-toastify";
 
 const UserForm = ({ initialValues, onSubmit, isEditMode = false }) => {

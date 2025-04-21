@@ -7,10 +7,12 @@ import {
 } from "../../../configs/onboardingConfig";
 import StepRenderer from "./StepRendrer";
 import { toast } from "react-toastify";
-import { addAccount } from "../../../api/accountsApi";
+import { addAccount } from "../../../service/accountsApi";
 import "../../../scss/onboarding.scss";
 
 const Onboarding = () => {
+
+
   const [step, setStep] = useState(0);
   const [formData, setFormData] = useState({
     arn: "",
@@ -37,7 +39,8 @@ const Onboarding = () => {
 
 
 
-  const handleSubmit = async ()=>{
+  const handleSubmit = async (e)=>{
+    e.preventDefault();
     try {
       const res = await addAccount(formData);
       console.log(res);

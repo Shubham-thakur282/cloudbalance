@@ -10,16 +10,13 @@ const Unauthorized = () => {
   return (
     <div className="error-page">
       <div className="error-page-wrapper">
-        <div className="error-left">
-          <img src={forbidden} alt="Forbidden access" height="600" />
-        </div>
         <div className="error-right">
           <div className="error-right-wrapper">
             <div className="error-right-div">
               <div className="error-right-div-wrapper">
                 <h1>403 - Forbidden</h1>
                 <p>
-                  Sorry, you don't have permission to access this page. Please contact the administrator if you believe this is an error.
+                  Sorry, you don't have permission to access this page.
                 </p>
               </div>
             </div>

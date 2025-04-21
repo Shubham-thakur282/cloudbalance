@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/action";
 import { useNavigate } from "react-router-dom";
-import { logoutUser } from "../../api/usersApi";
+import { logoutUser } from "../../service/usersApi";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LogoutIcon from "@mui/icons-material/Logout";
 import logo from "../../assets/Cloudkeeper.svg";

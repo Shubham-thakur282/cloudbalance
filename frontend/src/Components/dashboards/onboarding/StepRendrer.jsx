@@ -6,7 +6,7 @@ const StepRenderer = ({ details, isFinal }) => {
     try {
       await navigator.clipboard.writeText(text);
       // alert('Copied to clipboard!');
-      toast.succewwss("Copied");
+      toast.success("Copied");
     } catch (err) {
       console.error("Failed to copy:", err);
       toast.error("Error occured");

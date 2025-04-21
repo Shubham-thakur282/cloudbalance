@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import InputBox from "./InputBox";
 import logo from "../../assets/Cloudkeeper.svg";
 import Footer from "../footer/Footer";
-import { loginUser } from "../../api/auth";
+import { loginUser } from "../../service/auth";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { login } from "../../redux/action";
@@ -45,7 +45,7 @@ const Login = () => {
   };
 
   useEffect(() => {
-    console.log(isAuthenticated);
+    // console.log(isAuthenticated);
     if (isAuthenticated) {
       navigate("/dashboard");
     }

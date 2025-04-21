@@ -22,7 +22,6 @@ public class RolesController {
     @GetMapping
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<List<RolesResponse>> getRoles(){
-        log.info("api call has reached in controller");
         return ResponseEntity.ok(rolesService.getRoles());
     }
 }

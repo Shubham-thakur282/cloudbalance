@@ -15,7 +15,6 @@ const Sidebar = () => {
         {permissions.map((item, index) => (
             <div key={item.id} className="nav-link-wrapper">
           <NavLink
-            // key={item.id}
             to={item.permission}
             className={({ isActive }) =>
               isActive ? "nav-link active" : "nav-link"

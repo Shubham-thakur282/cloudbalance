@@ -23,7 +23,6 @@ export const pageOne = (data, handleChange) => {
     },
     data: [
       {
-        // content: "Log into AWS account & Create an IAM Role.",
         content: (
           <>
             Log into AWS account &{" "}

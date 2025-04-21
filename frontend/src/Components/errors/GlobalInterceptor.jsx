@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import axiosInstance from "../../api/axiosInstance";
+import axiosInstance from "../../service/axiosInstance";
 import { logout } from "../../redux/action";
 
 const GlobalInterceptor = () =>{

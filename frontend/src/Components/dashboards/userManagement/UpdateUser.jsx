@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import {useParams, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import UserForm from "./UserForm";
-import { getUser ,updateUser} from "../../../api/usersApi";
+import { getUser ,updateUser} from "../../../service/usersApi";
 import "../../../scss/addUser.scss";
 
 const UpdateUser = () => {
@@ -32,7 +32,8 @@ const UpdateUser = () => {
     fetchUser();
   }, [navigate]);
 
-  const handleUpdateUser = async (payload) => {
+  const handleUpdateUser = async (payload,e) => {
+    e.preventDefault();
     try {
         // console.log(payload);
       const res = await updateUser(id, payload);
