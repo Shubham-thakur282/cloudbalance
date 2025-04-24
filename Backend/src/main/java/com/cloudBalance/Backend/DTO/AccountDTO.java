@@ -8,7 +8,7 @@ public class AccountDTO {
     @NotNull(message = "Arn cannot be null")
     private String arn;
     @NotNull(message = "Account id cannot be null")
-    private Long accountId;
+    private String accountId;
     @NotNull(message = "Account name cannot be null")
     private String accountName;
 //    @NotNull(message = "Account role cannot be null")

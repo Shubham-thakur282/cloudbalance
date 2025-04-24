@@ -92,10 +92,10 @@ const Onboarding = () => {
             )}
 
             <button
-              onClick={() => {
+              onClick={(e) => {
                 if (isSubmit) {
                   console.log("Submitting form data:", formData);
-                  handleSubmit();
+                  handleSubmit(e);
                 }else{
                 handleStepChange();
                 }

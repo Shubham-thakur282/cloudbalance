@@ -4,6 +4,7 @@ import com.cloudBalance.Backend.DTO.*;
 import com.cloudBalance.Backend.entity.Accounts;
 import com.cloudBalance.Backend.entity.Roles;
 import com.cloudBalance.Backend.entity.Users;
+import software.amazon.awssdk.services.ec2.model.Instance;
 
 public class EntityDTOMapping {
     public static Users userDTOToEntity(UserDTO userDTO) {
@@ -74,5 +75,12 @@ public class EntityDTOMapping {
                 .toList());
         return userResponseDTO;
     }
+
+//    public static Ec2Response ec2InstanceToDTO(Instance instance){
+//        Ec2Response ec2Response = new Ec2Response();
+//        ec2Response.setResourceId(instance.instanceId());
+//        ec2Response.setStatus(instance.state().nameAsString());
+//        return ec2Response;
+//    }
 
 }

@@ -15,6 +15,7 @@ import { ToastContainer } from "react-toastify";
 import AddUser from "./Components/dashboards/userManagement/AddUser";
 import UpdateUser from "./Components/dashboards/userManagement/UpdateUser";
 import Onboarding from "./Components/dashboards/onboarding/Onboarding";
+import AwsService from "./Components/dashboards/awsService/AwsService";
 import GlobalInterceptor from "./Components/errors/GlobalInterceptor";
 
 function App() {
@@ -42,7 +43,7 @@ function App() {
 
             <Route path="onboarding" element={<Onboarding />} />
             <Route path="cost-explorer" element={<div>Cost Explorer</div>} />
-            <Route path="aws-services" element={<div>Aws services</div>} />
+            <Route path="aws-services" element={<AwsService />} />
           </Route>
         </Route>
 

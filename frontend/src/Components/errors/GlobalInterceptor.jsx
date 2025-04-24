@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import axiosInstance from "../../service/axiosInstance";
 import { logout } from "../../redux/action";
+import { toast } from "react-toastify";
 
 const GlobalInterceptor = () =>{
     const navigate = useNavigate();
@@ -12,6 +13,7 @@ const GlobalInterceptor = () =>{
         const resInterceptor = axiosInstance.interceptors.response.use((res)=>res,
         (err)=>{
             if(err?.response?.status === 401){
+                toast.error("Session expired");
                 dispatch(logout());
                 navigate("/login");
             }

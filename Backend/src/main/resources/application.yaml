@@ -34,3 +34,7 @@ app:
   expiration:
     refreshToken: 259200000
     accessToken: 900000
+
+#aws:
+#  accessKey: ${AWS_ACCESS_KEY_ID}
+#  secretKey: ${AWS_SECRET_ACCESS_KEY}

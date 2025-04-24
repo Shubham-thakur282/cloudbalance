@@ -13,7 +13,7 @@ public class Accounts {
 
     private String arn;
 
-    private Long accountId;
+    private String accountId;
 
     private String accountName;
 

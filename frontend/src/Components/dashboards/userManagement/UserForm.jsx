@@ -52,7 +52,7 @@ const UserForm = ({ initialValues, onSubmit, isEditMode = false }) => {
   }, [roleId, roles]);
 
   const handleAccountSelect = (e) => {
-    const selectedId = parseInt(e.target.value);
+    const selectedId = e.target.value;
     const selectedAccount = accounts.find(
       (acc) => acc.accountId === selectedId
     );

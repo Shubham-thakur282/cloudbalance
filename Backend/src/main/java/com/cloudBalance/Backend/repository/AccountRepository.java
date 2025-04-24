@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface AccountRepository extends JpaRepository<Accounts,Long> {
-    Optional<Accounts> findByAccountId(Long AccountId);
+    Optional<Accounts> findByAccountId(String AccountId);
     List<Accounts> findAllByAccountIdIn(List<Long> accountIds);
 
     @Query(value = """

@@ -51,9 +51,9 @@ public class UsersServiceImpl implements UsersService {
             List<Accounts> accountsList = accRepo.findAllByAccountIdIn(userDTO.getAccountIds());
             accountsList.stream().map((a) ->{
                a.setIsOrphan(false);
-               accRepo.save(a);
                return a;
             });
+            accRepo.saveAll(accountsList);
             userEntity.setAccountsList(accountsList);
         }
         userEntity.setPassword(passwordEncoder.encode(userDTO.getPassword()));
@@ -99,9 +99,9 @@ public class UsersServiceImpl implements UsersService {
             accountsList.stream()
                             .map(a -> {
                                 a.setIsOrphan(false);
-                                accRepo.save(a);
                                 return a;
                             });
+            accRepo.saveAll(accountsList);
             user.setAccountsList(accountsList);
             //setting new accounts of user in response dto
             userUpdateResponseDTO.setAccounts(user.getAccountsList()

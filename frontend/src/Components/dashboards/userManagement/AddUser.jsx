@@ -9,8 +9,7 @@ import "../../../scss/addUser.scss";
 const AddUser = () => {
   const navigate = useNavigate();
 
-  const handleAddUser = async (payload,e) => {
-    e.preventDefault();
+  const handleAddUser = async (payload) => {
     try {
       const res = await addUser(payload);
       if (res.status === 200) {

@@ -7,7 +7,7 @@ import "../../../scss/addUser.scss";
 
 const UpdateUser = () => {
   const { id } = useParams(); 
-  console.log(id);
+
   const navigate = useNavigate();
   const [initialValues, setInitialValues] = useState(null);
 
@@ -16,7 +16,7 @@ const UpdateUser = () => {
       try {
         const res = await getUser(id);
         const user = res?.data;
-        console.log(res?.data);
+
         setInitialValues({
           name: user.name,
           email: user.email,
@@ -32,12 +32,11 @@ const UpdateUser = () => {
     fetchUser();
   }, [navigate]);
 
-  const handleUpdateUser = async (payload,e) => {
-    e.preventDefault();
+  const handleUpdateUser = async (payload) => {
     try {
         // console.log(payload);
       const res = await updateUser(id, payload);
-        console.log(res);
+
       if (res?.status === 200) {
         toast.success(`${payload.email} updated successfully`);
         navigate("/dashboard/users");

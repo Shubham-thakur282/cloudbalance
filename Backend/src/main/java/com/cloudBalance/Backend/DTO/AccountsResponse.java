@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class AccountsResponse {
-    private Long accountId;
+    private String accountId;
     private String accountName;
 //    private String accountRole;
     private Boolean isOrphan;
