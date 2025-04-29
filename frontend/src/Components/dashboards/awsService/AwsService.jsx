@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import AccountDropdown from "./AccountDropdown";
 import ResourceTable from "./ResourceTable";
 import { getAccounts } from "../../../service/accountsApi";
-// import { ec2Data } from "../../../service/awsApi";
 import { awsData } from "../../../service/awsApi";
 import { toast } from "react-toastify";
 import "../../../scss/awsService.scss";
@@ -15,7 +14,6 @@ const AwsService = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [resourceData, setResourceData] = useState([]);
 
-  // Fetch account list
   useEffect(() => {
     const fetchDetails = async () => {
       try {
@@ -31,7 +29,6 @@ const AwsService = () => {
     fetchDetails();
   }, []);
 
-  // Fetch service resource data
   useEffect(() => {
     const fetchResources = async () => {
       if (selectedAccount?.accountId && selectedService) {
@@ -65,8 +62,12 @@ const AwsService = () => {
             <div key={service} className="service-button">
               <button
                 className={selectedService === service ? "active" : ""}
-                onClick={() => setSelectedService(service)}
-              >
+                onClick={() => {
+                  setIsLoading(true)
+                  setSelectedService(service)}
+                } 
+                disabled={isLoading}
+                >
                 {service}
               </button>
             </div>

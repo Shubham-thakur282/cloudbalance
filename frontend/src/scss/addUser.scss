@@ -38,11 +38,12 @@
     .form-wrapper {
       width: 80%;
       align-items: start;
+
       .form-box {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
         gap: 30px;
-
+        margin-bottom: 20px;
         .accounts-grid {
           grid-column: span 2;
         }
@@ -57,6 +58,11 @@
             grid-template-columns: 1fr 1fr;
             gap: 30px;
           }
+          .error-message{
+            color: red;
+            font-size: 1rem;
+
+          }
         }
 
         label {
@@ -70,7 +76,7 @@
           width: 100%;
           height: 40px;
           padding: 0.5rem;
-          margin-bottom: 1rem;
+          margin-bottom: .5rem;
           border: 1px solid black;
           border-radius: 5px;
         }
@@ -111,6 +117,8 @@
       .submit-box {
         width: 100%;
         text-align: center;
+        display: flex;
+        gap: 40px;
 
         button {
           margin-top: 2rem;

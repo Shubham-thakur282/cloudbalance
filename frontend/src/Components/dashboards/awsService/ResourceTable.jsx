@@ -1,8 +1,8 @@
 import { useState } from "react";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import { tableColumns, columnKeyMap } from "./tableConfig";
-import "../../../scss/resourceTable.scss";
 import { toast } from "react-toastify";
+import "../../../scss/resourceTable.scss";
 
 const ResourceTable = ({ service, data }) => {
   const [filters, setFilters] = useState({});
@@ -13,7 +13,7 @@ const ResourceTable = ({ service, data }) => {
     navigator.clipboard.writeText(text);
     toast.success("Copied to clipboard!");
   };
-
+  
   const filteredData = data.filter((item) => {
     return Object.entries(filters).every(([key, values]) => {
       if (values.length === 0) return true;
@@ -47,7 +47,13 @@ const ResourceTable = ({ service, data }) => {
                 <div className="column-header-div">
                   <span>{col}</span>
                   <button
-                    onClick={() => setShowPopup(showPopup === col ? null : col)}
+                    onClick={() => {
+                      if(showPopup === col){
+                        setSearch("");
+                      }
+                      setShowPopup(showPopup === col ? null : col)
+
+                    }}
                   >
                     &#x25BC;
                   </button>

@@ -13,7 +13,7 @@ import "../../scss/login.scss";
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { isAuthenticated } = useSelector((state) => state);
+  const isAuthenticated  = useSelector((state) => state.isAuthenticated);
   const obj = {
     email: "",
     password: "",
@@ -31,6 +31,11 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!user.email.trim() || !user.password.trim()) {
+      toast.error("Please fill in all the fields");
+      return;
+    }
+
     try {
       const res = await loginUser(user, dispatch);
       console.log("response came from api");
@@ -39,13 +44,12 @@ const Login = () => {
       toast.success("logged in successfully");
       navigate("/dashboard");
     } catch (error) {
-      toast.error("Error Occured!");
       console.log(error);
+      toast.error(error?.response?.data || error?.message);
     }
   };
 
   useEffect(() => {
-    // console.log(isAuthenticated);
     if (isAuthenticated) {
       navigate("/dashboard");
     }

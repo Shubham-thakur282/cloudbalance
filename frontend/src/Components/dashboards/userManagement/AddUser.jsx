@@ -19,7 +19,7 @@ const AddUser = () => {
         toast.error("Error occurred");
       }
     } catch (error) {
-      toast.error("Error occurred");
+      toast.error(error?.response?.data || "Error Occured!");
     }
   };
 

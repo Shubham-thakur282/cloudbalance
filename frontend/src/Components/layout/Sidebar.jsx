@@ -12,7 +12,7 @@ const Sidebar = () => {
   return (
     <div className="sidebar">
       <nav className="nav-links">
-        {permissions.map((item, index) => (
+        {permissions.map((item) => (
             <div key={item.id} className="nav-link-wrapper">
           <NavLink
             to={item.permission}

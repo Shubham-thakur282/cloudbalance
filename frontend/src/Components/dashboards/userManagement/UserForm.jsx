@@ -3,6 +3,7 @@ import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import { getRoles } from "../../../service/roleApi";
 import { getAccounts } from "../../../service/accountsApi";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const UserForm = ({ initialValues, onSubmit, isEditMode = false }) => {
   const [name, setName] = useState(initialValues?.name || "");
@@ -15,6 +16,16 @@ const UserForm = ({ initialValues, onSubmit, isEditMode = false }) => {
     initialValues?.assignedAccounts || []
   );
   const [isCustomer, setIsCustomer] = useState(false);
+  
+  const [errors, setErrors] = useState({
+    name: "",
+    email: "",
+    password: "",
+    roleId: "",
+    accounts: ""
+  });
+  
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchRoles = async () => {
@@ -73,32 +84,39 @@ const UserForm = ({ initialValues, onSubmit, isEditMode = false }) => {
   const validateEmail = (email) =>
     /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const validateForm = () => {
+    let valid = true;
+    const newErrors = { name: "", email: "", password: "", roleId: "", accounts: "" };
 
-    // Basic validations
     if (name.trim().length < 3) {
-      toast.error("Name must be at least 3 characters");
-      return;
+      newErrors.name = "Name must be at least 3 characters";
+      valid = false;
     }
 
     if (!isEditMode && !validateEmail(email)) {
-      toast.error("Invalid email format");
-      return;
+      newErrors.email = "Invalid email format";
+      valid = false;
     }
 
     if (!isEditMode && password.trim().length < 6) {
-      toast.error("Password must be at least 6 characters");
-      return;
+      newErrors.password = "Password must be at least 6 characters";
+      valid = false;
     }
 
     if (!roleId) {
-      toast.error("Please select a role");
-      return;
+      newErrors.roleId = "Please select a role";
+      valid = false;
     }
+    
+    setErrors(newErrors);
+    return valid;
+  };
 
-    if (isCustomer && selectedAccounts.length === 0) {
-      toast.error("At least one account must be selected for CUSTOMER role");
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (!validateForm()) {
+      toast.error("Please fix the errors");
       return;
     }
 
@@ -124,21 +142,22 @@ const UserForm = ({ initialValues, onSubmit, isEditMode = false }) => {
               value={name}
               placeholder="Name"
               onChange={(e) => setName(e.target.value)}
-              required
             />
+            {errors.name && <p className="error-message">{errors.name}</p>}
           </div>
-          {!isEditMode && (
-            <div className="details-div">
-              <label>Email:</label>
-              <input
-                type="email"
-                value={email}
-                placeholder="Email"
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </div>
-          )}
+
+          <div className="details-div">
+            <label>Email:</label>
+            <input
+              type="email"
+              value={email}
+              placeholder="Email"
+              onChange={(e) => setEmail(e.target.value)}
+              disabled={isEditMode}
+            />
+            {errors.email && <p className="error-message">{errors.email}</p>}
+          </div>
+
           {!isEditMode && (
             <div className="details-div">
               <label>Password:</label>
@@ -147,8 +166,8 @@ const UserForm = ({ initialValues, onSubmit, isEditMode = false }) => {
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                required
               />
+              {errors.password && <p className="error-message">{errors.password}</p>}
             </div>
           )}
         </div>
@@ -159,7 +178,6 @@ const UserForm = ({ initialValues, onSubmit, isEditMode = false }) => {
             <select
               value={roleId}
               onChange={(e) => setRoleId(e.target.value)}
-              required
             >
               <option value="">-- Select Role --</option>
               {roles.map((role) => (
@@ -168,6 +186,7 @@ const UserForm = ({ initialValues, onSubmit, isEditMode = false }) => {
                 </option>
               ))}
             </select>
+            {errors.roleId && <p className="error-message">{errors.roleId}</p>}
           </div>
 
           {isCustomer && (
@@ -183,7 +202,9 @@ const UserForm = ({ initialValues, onSubmit, isEditMode = false }) => {
                       </option>
                     ))}
                   </select>
+                  {errors.accounts && <p className="error-message">{errors.accounts}</p>}
                 </div>
+
                 <div>
                   {selectedAccounts.length !== 0 && (
                     <>
@@ -210,6 +231,9 @@ const UserForm = ({ initialValues, onSubmit, isEditMode = false }) => {
         </div>
 
         <div className="submit-box">
+          <button type="button" onClick={() => navigate("/dashboard")}>
+            Cancel
+          </button>
           <button type="submit">
             {isEditMode ? "Update User" : "Add User"}
           </button>

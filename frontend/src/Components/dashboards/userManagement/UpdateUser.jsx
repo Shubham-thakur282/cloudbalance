@@ -31,6 +31,7 @@ const UpdateUser = () => {
 
     fetchUser();
   }, [navigate]);
+  console.log(initialValues);
 
   const handleUpdateUser = async (payload) => {
     try {

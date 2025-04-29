@@ -17,9 +17,10 @@ import UpdateUser from "./Components/dashboards/userManagement/UpdateUser";
 import Onboarding from "./Components/dashboards/onboarding/Onboarding";
 import AwsService from "./Components/dashboards/awsService/AwsService";
 import GlobalInterceptor from "./Components/errors/GlobalInterceptor";
+import CostExplorer from "./Components/dashboards/costExplorer/CostExplorer";
 
 function App() {
-  const {role,permissions} = useSelector((state) => state);
+  const role = useSelector((state) => state.role);
   return (
     <Router>
       <Routes>
@@ -42,14 +43,14 @@ function App() {
             </Route>
 
             <Route path="onboarding" element={<Onboarding />} />
-            <Route path="cost-explorer" element={<div>Cost Explorer</div>} />
+            <Route path="cost-explorer" element={<CostExplorer />} />
             <Route path="aws-services" element={<AwsService />} />
           </Route>
         </Route>
 
         <Route path="*" element={<Error404 />} />
       </Routes>
-      <GlobalInterceptor />
+      {/* <GlobalInterceptor /> */}
       <ToastContainer position="top-right" autoClose={3000} theme="colored" />
     </Router>
   );

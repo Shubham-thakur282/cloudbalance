@@ -107,9 +107,8 @@
             margin: 10px 0;
           }
           .input-form {
-            display: flex;
-            justify-content: start;
-            align-items: center;
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
             gap: 30px;
             .arn-input-box {
               display: flex;

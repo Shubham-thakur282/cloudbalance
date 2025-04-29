@@ -17,22 +17,19 @@ const UserManagement = () => {
   const [totalPages, setTotalPages] = useState();
   const usersPerPage = 10;
 
-  const indexOfLastUser = currentPage * usersPerPage;
-  const indexOfFirstUser = indexOfLastUser - usersPerPage;
-//   const currentUsers = users.slice(indexOfFirstUser, indexOfLastUser);
-
   const handleNext = async () => {
-    if (currentPage < totalPages) setCurrentPage((prev) => prev + 1);
+    if (currentPage < totalPages) 
+      setCurrentPage((prev) => prev + 1);
   };
 
   const handlePrev = async () => {
-    if (currentPage > 1) setCurrentPage((prev) => prev - 1);
+    if (currentPage > 1) 
+      setCurrentPage((prev) => prev - 1);
   };
 
   const getUserDetails = async (usersPerPage,currentPage) => {
     try {
       const response = await getUsers(usersPerPage, currentPage - 1);
-      // console.log(response);
       setData(response?.data);
       setUsers(response?.data?.content || []);
       setTotalPages(response?.data?.totalPages);
@@ -92,7 +89,7 @@ const UserManagement = () => {
             <tbody>
               {loading ? (
                 <tr>
-                  <td colSpan="6">Loading...</td>
+                  <td colSpan="6" style={{textAlign : "center"}} >Loading...</td>
                 </tr>
               ) : users.length > 0 ? (
                 users.map((item, index) => (
@@ -107,7 +104,7 @@ const UserManagement = () => {
                         <NavLink className="btns" to={`update-user/${item.id}`}>
                           <EditIcon />
                         </NavLink>
-                        <button onClick={()=>handleDelete(item.id)} className="btns" >
+                        <button id="delete-btn" onClick={()=>handleDelete(item.id)} className="btns" >
                             <DeleteIcon />
                         </button>
                       </td>
@@ -116,14 +113,13 @@ const UserManagement = () => {
                 ))
               ) : (
                 <tr>
-                  <td colSpan="6">No user found</td>
+                  <td colSpan="6" style={{textAlign : "center"}} >No user found</td>
                 </tr>
               )}
             </tbody>
           </table>
         </div>
 
-        {/* Pagination Controls */}
         {!loading && users.length > 0 && (
           <div className="pagination-controls">
             <button onClick={handlePrev} disabled={currentPage === 1}>

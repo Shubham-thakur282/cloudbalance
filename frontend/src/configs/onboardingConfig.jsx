@@ -79,14 +79,17 @@ export const pageOne = (data, handleChange) => {
             name: "arn",
             value: data.arn,
             onChange: handleChange,
+            errror:"Enter arn"
           },
           {
             label: "Account id",
-            type: "number",
+            type: "Text",
             id: "accountId",
             name: "accountId",
             value: data.accountId,
             onChange: handleChange,
+            errror:"Enter valid account id of 12 digits",
+            pattern:/^[0-9]{12}$/
           },
           {
             label: "Account name",
@@ -95,6 +98,7 @@ export const pageOne = (data, handleChange) => {
             name: "accountName",
             value: data.accountName,
             onChange: handleChange,
+            errror:"Enter valid account name"
           },
         ],
       },

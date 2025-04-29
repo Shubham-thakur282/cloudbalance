@@ -1,11 +1,10 @@
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import { toast } from "react-toastify";
 
-const StepRenderer = ({ details, isFinal }) => {
+const StepRenderer = ({ details, isFinal, errors }) => {
   const handleCopy = async (text) => {
     try {
       await navigator.clipboard.writeText(text);
-      // alert('Copied to clipboard!');
       toast.success("Copied");
     } catch (err) {
       console.error("Failed to copy:", err);
@@ -30,7 +29,6 @@ const StepRenderer = ({ details, isFinal }) => {
             <div className="main-text-content">
               {step.content && <p>{step.content}</p>}
 
-              {/* Copy Text Section */}
               {step.copyText && (
                 <div className="copy-text-wrapper">
                   <p className="copy-text">
@@ -82,20 +80,28 @@ const StepRenderer = ({ details, isFinal }) => {
                 </div>
               )}
 
-              {/* Input Boxes */}
               {step.inputBoxes && (
                 <div className="input-form">
                   {step.inputBoxes.map((input, idx) => (
                     <div className="arn-input-box" key={idx}>
-                      <label>{input.label}</label>
+                      <label>{input?.label}</label>
                       <input
-                        type={input.type}
-                        name={input.name}
-                        value={input.value}
-                        placeholder={input.label}
-                        onChange={input.onChange}
-                        required
+                        type={input?.type}
+                        name={input?.name}
+                        value={input?.value}
+                        placeholder={input?.label}
+                        onChange={input?.onChange}
+                        pattern={input?.pattern}
                       />
+
+                      {errors[input.name] && (
+                        <span
+                          className="error-message"
+                          style={{ color: "red", fontSize: "1rem" }}
+                        >
+                          {errors[input.name]}
+                        </span>
+                      )}
                     </div>
                   ))}
                 </div>
@@ -107,8 +113,8 @@ const StepRenderer = ({ details, isFinal }) => {
                   {step?.text1 && <p>{step?.text1}</p>}
                   {step?.text2 && <p>{step?.text2}</p>}
                   <div className="submitted-page-box2">
-                  {step?.text3 && <p>{step?.text3}</p>}
-                  {step?.text4 && <p>{step?.text4}</p>}
+                    {step?.text3 && <p>{step?.text3}</p>}
+                    {step?.text4 && <p>{step?.text4}</p>}
                   </div>
                 </div>
               )}
