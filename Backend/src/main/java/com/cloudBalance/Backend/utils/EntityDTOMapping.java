@@ -69,6 +69,7 @@ public class EntityDTOMapping {
         Roles role = user.getRole();
         userResponseDTO.setRole(role.getRole().name());
         userResponseDTO.setRoleId(role.getId());
+        userResponseDTO.setEmail(user.getEmail());
         userResponseDTO.setAssignedAccounts(user.getAccountsList()
                 .stream()
                 .map(EntityDTOMapping::accEntityToResponse)

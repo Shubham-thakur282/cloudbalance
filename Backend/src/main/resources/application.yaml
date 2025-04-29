@@ -7,17 +7,17 @@ spring:
       name: user
       password: 123456
 
-  datasource:
-    url: jdbc:mysql://localhost:3306/cloudbalance
-    username: root
-    password:
-    driver-class-name: com.mysql.cj.jdbc.Driver
+#  datasource:
+#    url: jdbc:mysql://localhost:3306/cloudbalance
+#    username: root
+#    password:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
 
-  jpa:
-    database-platform: org.hibernate.dialect.MySQL8Dialect
-    hibernate:
-      ddl-auto: update
-    show-sql: true
+#  jpa:
+#    database-platform: org.hibernate.dialect.MySQL8Dialect
+#    hibernate:
+#      ddl-auto: update
+#    show-sql: true
 
 server:
   port: 8082
@@ -34,6 +34,16 @@ app:
   expiration:
     refreshToken: 259200000
     accessToken: 900000
+
+#snowflake:
+#  datasource: jdbc:snowflake://YFYRZGG-BWB35436.snowflakecomputing.com/?db=aws&schema=cost
+#  username: ${SNOWFLAKE_USERNAME}
+#  password: ${SNOWFLAKE_PASSWORD}
+#  warehouse: COMPUTE_WH
+  #${SNOWFLAKE_WAREHOUSE}
+#  warehouse: COMPUTE_WH
+#  database: aws
+#  schema: cost
 
 #aws:
 #  accessKey: ${AWS_ACCESS_KEY_ID}

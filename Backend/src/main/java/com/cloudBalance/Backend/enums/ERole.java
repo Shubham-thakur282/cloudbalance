@@ -1,4 +1,4 @@
-package com.cloudBalance.Backend.entity;
+package com.cloudBalance.Backend.enums;
 
 public enum ERole {
     ADMIN,

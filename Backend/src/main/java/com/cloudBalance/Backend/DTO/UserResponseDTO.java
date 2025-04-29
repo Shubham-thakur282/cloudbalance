@@ -10,4 +10,5 @@ public class UserResponseDTO {
     private List<AccountsResponse> assignedAccounts;
     private String role;
     private Long roleId;
+    private String email;
 }

@@ -1,5 +1,7 @@
-package com.cloudBalance.Backend.entity;
+package com.cloudBalance.Backend.security.userDetails;
 
+import com.cloudBalance.Backend.entity.Roles;
+import com.cloudBalance.Backend.entity.Users;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

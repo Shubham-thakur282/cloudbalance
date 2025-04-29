@@ -1,9 +1,8 @@
 package com.cloudBalance.Backend.security.filter;
 
 import com.cloudBalance.Backend.entity.BlackListToken;
-import com.cloudBalance.Backend.entity.UserPrincipal;
+import com.cloudBalance.Backend.security.userDetails.UserPrincipal;
 import com.cloudBalance.Backend.exception.BlackListTokenException;
-import com.cloudBalance.Backend.exception.InvalidTokenException;
 import com.cloudBalance.Backend.repository.BlackListTokenRepository;
 import com.cloudBalance.Backend.security.service.JWTService;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -16,7 +15,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -26,7 +24,6 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
-import java.security.SignatureException;
 import java.util.Optional;
 
 @Slf4j

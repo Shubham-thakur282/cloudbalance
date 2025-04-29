@@ -3,7 +3,7 @@ package com.cloudBalance.Backend.service.Impl;
 import com.cloudBalance.Backend.DTO.AccountDTO;
 import com.cloudBalance.Backend.DTO.AccountsResponse;
 import com.cloudBalance.Backend.entity.Accounts;
-import com.cloudBalance.Backend.entity.UserPrincipal;
+import com.cloudBalance.Backend.security.userDetails.UserPrincipal;
 import com.cloudBalance.Backend.entity.Users;
 import com.cloudBalance.Backend.exception.AccountAlreadyExistsException;
 import com.cloudBalance.Backend.repository.AccountRepository;

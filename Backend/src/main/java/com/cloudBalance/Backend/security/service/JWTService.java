@@ -1,19 +1,15 @@
 package com.cloudBalance.Backend.security.service;
 
-import com.cloudBalance.Backend.entity.UserPrincipal;
-import com.cloudBalance.Backend.exception.InvalidTokenException;
+import com.cloudBalance.Backend.security.userDetails.UserPrincipal;
 import com.cloudBalance.Backend.repository.UserRepository;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
-import javax.naming.MalformedLinkException;
-import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;

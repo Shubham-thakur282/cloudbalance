@@ -45,6 +45,9 @@ dependencies {
     implementation "software.amazon.awssdk:autoscaling"
 	implementation 'software.amazon.awssdk:sts'
 
+	// https://mvnrepository.com/artifact/net.snowflake/snowflake-jdbc
+	implementation("net.snowflake:snowflake-jdbc:3.16.1")
+
 }
 
 tasks.named('test') {

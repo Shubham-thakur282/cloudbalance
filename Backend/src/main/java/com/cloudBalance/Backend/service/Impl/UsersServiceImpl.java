@@ -3,7 +3,7 @@ package com.cloudBalance.Backend.service.Impl;
 import com.cloudBalance.Backend.DTO.*;
 import com.cloudBalance.Backend.entity.Accounts;
 import com.cloudBalance.Backend.entity.Roles;
-import com.cloudBalance.Backend.entity.UserPrincipal;
+import com.cloudBalance.Backend.security.userDetails.UserPrincipal;
 import com.cloudBalance.Backend.entity.Users;
 import com.cloudBalance.Backend.exception.RoleNotFound;
 import com.cloudBalance.Backend.exception.UserAlreadyExistException;

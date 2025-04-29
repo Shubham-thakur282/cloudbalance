@@ -1,7 +1,7 @@
 package com.cloudBalance.Backend.DTO;
 
 import com.cloudBalance.Backend.entity.Permissions;
-import com.cloudBalance.Backend.entity.UserPrincipal;
+import com.cloudBalance.Backend.security.userDetails.UserPrincipal;
 import lombok.Data;
 import org.springframework.http.HttpStatus;
 

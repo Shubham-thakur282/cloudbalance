@@ -4,7 +4,7 @@ import com.cloudBalance.Backend.DTO.JwtResponse;
 import com.cloudBalance.Backend.DTO.LoginDTO;
 import com.cloudBalance.Backend.DTO.LogoutTokenRequest;
 import com.cloudBalance.Backend.entity.BlackListToken;
-import com.cloudBalance.Backend.entity.UserPrincipal;
+import com.cloudBalance.Backend.security.userDetails.UserPrincipal;
 import com.cloudBalance.Backend.entity.Users;
 import com.cloudBalance.Backend.exception.BlackListTokenException;
 import com.cloudBalance.Backend.repository.BlackListTokenRepository;

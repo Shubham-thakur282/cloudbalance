@@ -1,5 +1,6 @@
 package com.cloudBalance.Backend.service.Impl;
 
+import com.cloudBalance.Backend.utils.AwsUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import com.cloudBalance.Backend.DTO.AsgResponse;
@@ -47,32 +48,32 @@ public class AwsServiceImpl implements AwsService {
                 DescribeInstancesRequest.builder().build();
 
         AwsSessionCredentials sessionCredentials = assumeRoleService.assumeRole(account.get().getArn());
-        Ec2Client ec2Client = Ec2Client.builder()
-                .credentialsProvider(StaticCredentialsProvider.create(sessionCredentials))
-                .region(Region.US_EAST_1)
-                .build();
-        DescribeInstancesResponse response = ec2Client.describeInstances(request);
-        List<Reservation> reservations = response.reservations();
+        try(Ec2Client ec2Client = AwsUtils.getEc2Client(sessionCredentials)) {
+            DescribeInstancesResponse response = ec2Client.describeInstances(request);
+            List<Reservation> reservations = response.reservations();
 
-        List<Ec2Response> responseList = new ArrayList<>();
-        for (Reservation reservation: reservations){
-            reservation.instances().forEach(instance->{
-                Ec2Response ec2Response = new Ec2Response();
+            List<Ec2Response> responseList = new ArrayList<>();
+            for (Reservation reservation : reservations) {
+                reservation.instances().forEach(instance -> {
+                    Ec2Response ec2Response = new Ec2Response();
 
-                String name = instance.tags().stream()
-                        .filter(tag-> tag.key().equalsIgnoreCase("Name"))
-                        .map(Tag::value)
-                        .findFirst()
-                        .orElse("UnNamed");
+                    String name = instance.tags().stream()
+                            .filter(tag -> tag.key().equalsIgnoreCase("Name"))
+                            .map(Tag::value)
+                            .findFirst()
+                            .orElse("UnNamed");
 
-                ec2Response.setResourceId(instance.instanceId());
-                ec2Response.setResourceName(name);
-                ec2Response.setRegion(ec2Client.serviceClientConfiguration().region().toString());
-                ec2Response.setStatus(instance.state().nameAsString());
-                responseList.add(ec2Response);
-            });
+                    ec2Response.setResourceId(instance.instanceId());
+                    ec2Response.setResourceName(name);
+                    ec2Response.setRegion(ec2Client.serviceClientConfiguration().region().toString());
+                    ec2Response.setStatus(instance.state().nameAsString());
+                    responseList.add(ec2Response);
+                });
+            }
+            return responseList;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
-        return responseList;
     }
 
     @Override
@@ -83,25 +84,25 @@ public class AwsServiceImpl implements AwsService {
         }
 
         AwsSessionCredentials sessionCredentials = assumeRoleService.assumeRole(account.get().getArn());
-        RdsClient rdsClient = RdsClient.builder()
-                .credentialsProvider(StaticCredentialsProvider.create(sessionCredentials))
-                .region(Region.US_EAST_1)
-                .build();
+        try(RdsClient rdsClient = AwsUtils.getRdsClient(sessionCredentials)) {
 
-        DescribeDbInstancesResponse response = rdsClient
-                .describeDBInstances(DescribeDbInstancesRequest.builder().build());
+            DescribeDbInstancesResponse response = rdsClient
+                    .describeDBInstances(DescribeDbInstancesRequest.builder().build());
 
-        List<RdsResponse> rdsDetailsList = new ArrayList<>();
-        for (DBInstance dbInstance : response.dbInstances()) {
-            RdsResponse details = new RdsResponse();
-            details.setResourceId(dbInstance.dbInstanceArn());
-            details.setEngine(dbInstance.engine());
-            details.setResourceName(dbInstance.dbInstanceIdentifier());
-            details.setRegion(rdsClient.serviceClientConfiguration().region().toString());
-            details.setStatus(dbInstance.dbInstanceStatus());
-            rdsDetailsList.add(details);
+            List<RdsResponse> rdsDetailsList = new ArrayList<>();
+            for (DBInstance dbInstance : response.dbInstances()) {
+                RdsResponse details = new RdsResponse();
+                details.setResourceId(dbInstance.dbInstanceArn());
+                details.setEngine(dbInstance.engine());
+                details.setResourceName(dbInstance.dbInstanceIdentifier());
+                details.setRegion(rdsClient.serviceClientConfiguration().region().toString());
+                details.setStatus(dbInstance.dbInstanceStatus());
+                rdsDetailsList.add(details);
+            }
+            return rdsDetailsList;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
-        return rdsDetailsList;
     }
 
     public List<AsgResponse> getAsgInformation(String accountId){
@@ -111,25 +112,25 @@ public class AwsServiceImpl implements AwsService {
         }
 
         AwsSessionCredentials sessionCredentials = assumeRoleService.assumeRole(account.get().getArn());
-        AutoScalingClient asgClient = AutoScalingClient.builder()
-                .credentialsProvider(StaticCredentialsProvider.create(sessionCredentials))
-                .region(Region.US_EAST_1)
-                .build();
+        try(AutoScalingClient asgClient = AwsUtils.getAsgClient(sessionCredentials)) {
 
-        DescribeAutoScalingGroupsRequest request = DescribeAutoScalingGroupsRequest.builder().build();
-        DescribeAutoScalingGroupsResponse response = asgClient.describeAutoScalingGroups(request);
+            DescribeAutoScalingGroupsRequest request = DescribeAutoScalingGroupsRequest.builder().build();
+            DescribeAutoScalingGroupsResponse response = asgClient.describeAutoScalingGroups(request);
 
-        List<AsgResponse> asgResponseList = new ArrayList<>();
-        for (AutoScalingGroup group : response.autoScalingGroups()) {
-            AsgResponse details = new AsgResponse();
-            details.setResourceId(group.autoScalingGroupARN());
-            details.setResourceName(group.autoScalingGroupName());
-            details.setDesiredCapacity(group.desiredCapacity());
-            details.setMinSize(group.minSize());
-            details.setMaxSize(group.maxSize());
-            details.setRegion(asgClient.serviceClientConfiguration().region().toString());
-            asgResponseList.add(details);
+            List<AsgResponse> asgResponseList = new ArrayList<>();
+            for (AutoScalingGroup group : response.autoScalingGroups()) {
+                AsgResponse details = new AsgResponse();
+                details.setResourceId(group.autoScalingGroupARN());
+                details.setResourceName(group.autoScalingGroupName());
+                details.setDesiredCapacity(group.desiredCapacity());
+                details.setMinSize(group.minSize());
+                details.setMaxSize(group.maxSize());
+                details.setRegion(asgClient.serviceClientConfiguration().region().toString());
+                asgResponseList.add(details);
+            }
+            return asgResponseList;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
-        return asgResponseList;
     }
 }

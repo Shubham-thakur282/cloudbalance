@@ -43,7 +43,7 @@ public class SecurityConfig {
                         req
                                 .requestMatchers(
                                         "/auth/login",
-                                        "auth/refresh-token"
+                                        "/auth/refresh-token"
                                 ).permitAll()
                                 .anyRequest().authenticated()
                     )

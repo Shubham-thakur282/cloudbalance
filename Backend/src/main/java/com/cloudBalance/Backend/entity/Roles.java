@@ -1,5 +1,6 @@
 package com.cloudBalance.Backend.entity;
 
+import com.cloudBalance.Backend.enums.ERole;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -13,8 +14,13 @@ public class Roles {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "role")
     @Enumerated(EnumType.STRING)
     private ERole role;
+
+//    pending?
+//    @Column(name =  "display_name")
+//    private String displayName;
 
     @ManyToMany
     @JoinTable(
@@ -32,3 +38,4 @@ public class Roles {
                 '}';
     }
 }
+

@@ -1,6 +1,6 @@
 package com.cloudBalance.Backend.security.service;
 
-import com.cloudBalance.Backend.entity.UserPrincipal;
+import com.cloudBalance.Backend.security.userDetails.UserPrincipal;
 import com.cloudBalance.Backend.entity.Users;
 import com.cloudBalance.Backend.repository.UserRepository;
 import lombok.AllArgsConstructor;

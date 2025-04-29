@@ -11,6 +11,8 @@ public class BlackListToken {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "access_token")
     private String accessToken;
+    @Column(name = "refresh_token")
     private String refreshToken;
 }

@@ -11,8 +11,10 @@ public class Permissions {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "permission")
     private String permission;
 
+    @Column(name = "display_name")
     private  String displayName;
 
     @Override

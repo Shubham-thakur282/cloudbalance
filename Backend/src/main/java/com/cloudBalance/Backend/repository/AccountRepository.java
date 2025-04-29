@@ -1,6 +1,5 @@
 package com.cloudBalance.Backend.repository;
 
-import com.cloudBalance.Backend.DTO.AccountDTO;
 import com.cloudBalance.Backend.DTO.AccountsView;
 import com.cloudBalance.Backend.entity.Accounts;
 import org.springframework.data.jpa.repository.JpaRepository;
