@@ -1,0 +1,184 @@
+.cost-explorer-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  gap: 20px;
+  width: 100%;
+  // height: fit-content;
+  overflow-y: scroll;
+  .header-box {
+    background-color: #ffffff;
+    padding: 20px 20px 10px;
+    border-radius: 8px;
+    width: 100%;
+
+    .title {
+      font-size: 24px;
+      font-weight: 600;
+      margin: 0;
+    }
+
+    .underline {
+      margin-top: 10px;
+      border-bottom: 2px solid #e2e8f0;
+    }
+  }
+
+  .bottom {
+    margin: 20px 0 40px;
+    width: 100%;
+    // height: ;
+    border-radius: 10px;
+    background-color: #ffffff;
+
+    .top-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 20px;
+      font-size: 1.2rem;
+
+      .columns-display {
+        display: flex;
+        gap: 20px;
+
+        .column-item {
+          border: 1px solid #ccc;
+          padding: 8px;
+          border-radius: 5px;
+          cursor: pointer;
+        }
+        .selected {
+          background-color: #0073e6;
+          color: #ffffff;
+          border: none;
+        }
+
+        select {
+          border: 1px solid #ccc;
+          padding: 8px;
+          border-radius: 5px;
+          background-color: #fff;
+          // cursor: pointer;
+        }
+        option,select {
+          font-size: 1.1rem;
+        }
+      }
+      .controls {
+        .account-dropdown {
+          padding: 0.6rem 1rem;
+          border-radius: 5px;
+          border: 1px solid #ccc;
+          background-color: #fff;
+          font-size: 1rem;
+        }
+      }
+    }
+    .cost-explorer-main-wrapper {
+      display: flex;
+      width: 100%;
+      // transition: all ease-in-out .1s;
+      .cost-explorer-main {
+        width: 100%;
+        .chart-div {
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+          width: 100%;
+          padding: 20px;
+
+          .filter-btn {
+            color: #0073e6;
+            background-color: #fff;
+            display: flex;
+            justify-content: flex-end;
+          }
+        }
+      }
+      .less {
+        width: 1300px;
+        // transition: width ease-in-out .5s;
+      }
+      .filter-sidebar-wrapper {
+        width: 300px;
+        border: 1px solid #e2e8f0;
+        padding: 20px;
+        height: 100%;
+        .filter-sidebar {
+          // width: 100%;
+          // height: 100%;
+          // background-color: #0073e6;
+          display: flex;
+          justify-content: flex-end;
+          align-items: flex-end;
+          flex-direction: column;
+          gap: 10px;
+          // transition: all ease .5s;
+          .filter-block {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: flex-end;
+            // .filter-title {
+            // }
+            .filter-options {
+              display: flex;
+              justify-content: flex-end;
+              flex-direction: column;
+              .filter-values{
+                display: flex;
+                justify-content: flex-end;
+                align-items: flex-end;
+                flex-direction: column;
+                label{
+                  display: flex;
+                  gap: 10px;
+                }
+              }
+            }
+          }
+          .sidebar-actions{
+            display: flex;
+            gap: 10px;
+            button{
+              padding: 8px;
+              background-color: #3B82f6;
+              color: #fff;
+              border: none;
+              border-radius: 5px;
+              &:hover{
+                background-color: #0073e6;
+              }
+            }
+
+          }
+        }
+      }
+      .table-div{
+        padding: 20px;
+        .table-section{
+          table{
+            width: 100%;
+            border-collapse: collapse;
+            th,td{
+              text-align: left;
+              padding: 12px;
+              border-bottom: 1px solid #e2e8f0;
+            }
+            th{
+              background-color: #f8fafc;
+              font-weight: 600;
+              color: #334155;
+            }
+            tr:hover{
+              background-color: #f1f5f9;
+            }
+
+
+          }
+        }
+      }
+    }
+  }
+}

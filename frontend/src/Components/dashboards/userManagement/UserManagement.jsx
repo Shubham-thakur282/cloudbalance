@@ -78,7 +78,6 @@ const UserManagement = () => {
           <table>
             <thead>
               <tr>
-                <th>Id</th>
                 <th>Name</th>
                 <th>Email</th>
                 <th>Role</th>
@@ -94,7 +93,6 @@ const UserManagement = () => {
               ) : users.length > 0 ? (
                 users.map((item, index) => (
                   <tr key={index}>
-                    <td>{item?.id}</td>
                     <td>{item?.name}</td>
                     <td>{item?.email}</td>
                     <td>{item?.role}</td>

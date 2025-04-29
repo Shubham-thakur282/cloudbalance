@@ -9,7 +9,7 @@ const AccountDropdown = ({ accounts, selectedAccount, handleChange }) => {
         handleChange(selected);
       }}
     >
-      {accounts.map((acc) => (
+      {accounts.map((acc,index) => (
         <option key={acc.accountId} value={acc.accountId}>
           {`${acc.accountName} (${acc.accountId})`}
         </option>
