@@ -33,6 +33,7 @@ public class SnowflakeController {
     @PostMapping
     public ResponseEntity<CostExplorerResponse> getCostExplorerData(
             @Valid @RequestBody CostExplorerRequest request) {
+        log.info("Request for cost explorer data");
         return ResponseEntity.ok(snowflakeService.getCostExplorerData(request));
     }
 
