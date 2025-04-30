@@ -12,16 +12,15 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import "../../../scss/onboarding.scss";
 
-
 const Onboarding = () => {
   const navigate = useNavigate();
-  const role = useSelector(state => state.role);
+  const role = useSelector((state) => state.role);
 
-  useEffect(()=>{
-    if(!["ADMIN"].includes(role)){
+  useEffect(() => {
+    if (!["ADMIN"].includes(role)) {
       navigate("/");
     }
-  },[role,navigate])
+  }, [role, navigate]);
 
   const [step, setStep] = useState(0);
   const [formData, setFormData] = useState({
@@ -35,14 +34,14 @@ const Onboarding = () => {
     accountName: "",
   });
 
-  useEffect(()=>{
+  useEffect(() => {
     const scrollDiv = document.getElementById("onboarding-wrapper");
 
     scrollDiv.scroll({
-      top:0,
-      left:0
+      top: 0,
+      left: 0,
     });
-  },[step]);
+  }, [step]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -65,7 +64,6 @@ const Onboarding = () => {
     e.preventDefault();
     try {
       const res = await addAccount(formData);
-      // console.log(res);
       if (res.status === 200) {
         toast.success("Account onboarding successfull");
         setFormData({
@@ -78,7 +76,6 @@ const Onboarding = () => {
         toast.error(res?.message);
       }
     } catch (error) {
-      // console.log(error);
       toast.error(error?.response?.data);
     }
   };
@@ -123,7 +120,7 @@ const Onboarding = () => {
     <div className="onboarding-wrapper" id="onboarding-wrapper">
       <div className="multi-step-container">
         <StepRenderer isFinal={isFinal} errors={errors} details={pages[step]} />
-        
+
         {!isFinal && (
           <div className="nav-buttons">
             {step > 0 && (

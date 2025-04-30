@@ -17,6 +17,7 @@ const UpdateUser = () => {
     if(!["ADMIN","READONLY"].includes(role)){
       navigate("/");
     }
+    
     const fetchUser = async () => {
       try {
         const res = await getUser(id);

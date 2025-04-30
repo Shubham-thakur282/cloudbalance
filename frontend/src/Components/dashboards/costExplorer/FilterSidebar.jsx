@@ -9,8 +9,8 @@ const FilterSidebar = ({
   resetFilters,
   setShowSidebar,
 }) => {
-  const [filterValues, setFilterValues] = useState({}); // { displayName: [value1, value2] }
-  const [expanded, setExpanded] = useState({}); // { displayName: true/false }
+  const [filterValues, setFilterValues] = useState({});
+  const [expanded, setExpanded] = useState({}); 
 
   const toggleFilter = async (displayName) => {
     const isExpanded = expanded[displayName];
@@ -21,7 +21,7 @@ const FilterSidebar = ({
         const response = await getFilters(displayName);
         setFilterValues({
           ...filterValues,
-          [displayName]: response?.data, // assume API returns array of values
+          [displayName]: response?.data,
         });
       } catch (err) {
         console.error("Error fetching filter values:", err);

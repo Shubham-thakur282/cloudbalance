@@ -5,16 +5,14 @@ import { getUsers, removeUser } from "../../../service/usersApi";
 import { toast } from "react-toastify";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from '@mui/icons-material/Delete';
-import Loader from "../../utils/Loader";
+import Loader from "../../common/Loader";
 import "../../../scss/userManagement.scss";
 
 
 const UserManagement = () => {
   const navigate =  useNavigate();
   const role = useSelector((state) => state.role);
-  if(!["ADMIN","READONLY"].includes(role)){
-    navigate("/");
-  }
+  
   const [data, setData] = useState({});
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -41,7 +39,7 @@ const UserManagement = () => {
       setTotalPages(response?.data?.totalPages);
       setLoading(false);
     } catch (error) {
-      toast.error("Error Occurred");
+      toast.error(error?.response?.data || "Error Occured");
       setLoading(false);
       console.log(error);
     }
@@ -56,11 +54,13 @@ const UserManagement = () => {
       }
     } catch (error) {
       toast.error("Error occured");
-      // console.log(error);
     }
   }
 
   useEffect(() => {
+    if(!["ADMIN","READONLY"].includes(role)){
+      navigate("/");
+    }
     getUserDetails(usersPerPage,currentPage);
   }, [currentPage]);
 

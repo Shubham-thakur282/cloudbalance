@@ -1,4 +1,4 @@
-import AccountDropdown from "../awsService/AccountDropdown";
+import AccountDropdown from "../../common/AccountDropdown";
 
 const TopControls = ({
   visibleColumns, moreColumns, handleMoreColumnSelect,

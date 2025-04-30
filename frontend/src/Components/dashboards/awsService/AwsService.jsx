@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import AccountDropdown from "./AccountDropdown";
+import AccountDropdown from "../../common/AccountDropdown";
 import ResourceTable from "./ResourceTable";
 import { getAccounts } from "../../../service/accountsApi";
 import { awsData } from "../../../service/awsApi";
 import { toast } from "react-toastify";
-import Loader from "../../utils/Loader";
+import Loader from "../../common/Loader";
 import "../../../scss/awsService.scss";
 
 

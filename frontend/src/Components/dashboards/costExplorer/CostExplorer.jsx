@@ -1,10 +1,6 @@
 import { useEffect, useState } from "react";
-// import Select from "react-select";
 import FusionCharts from "fusioncharts";
-// impor
 import charts from "fusioncharts/fusioncharts.charts";
-// import ReactFusioncharts from "react-fusioncharts";
-// import HeaderBox from "./HeaderBox";
 import TopControls from "./TopControls";
 import ChartSection from "./ChartSection";
 import FilterSidebar from "./FilterSidebar";
@@ -13,7 +9,7 @@ import { getAccounts } from "../../../service/accountsApi";
 import { toast } from "react-toastify";
 import MenuOpenIcon from "@mui/icons-material/MenuOpen";
 import { getData, getGroupByColumns } from "../../../service/costExplorerApi";
-import Loader from "../../utils/Loader";
+import Loader from "../../common/Loader";
 import "../../../scss/costExplorer.scss";
 import { isEmptyObject } from "../../../utils";
 
@@ -74,17 +70,16 @@ const CostExplorer = () => {
     try {
       setIsDataLoading(true);
       const payload = {
-        accountId: selectedAccount.accountId,
+        accountId: selectedAccount?.accountId,
         groupBy: selectedColumn?.displayName,
         filters: filters,
       };
       const res = await getData(payload);
-      // console.log(res);
       setChartData(res?.data?.chartData);
       setTableData(res?.data?.data);
       setIsDataLoading(false);
     } catch (error) {
-      // toast.error(error.)
+      toast.error(error?.response?.data);
       console.log(error);
     }
   };
@@ -120,15 +115,14 @@ const CostExplorer = () => {
 
   const applyFilters = () => {
     fetchChartData();
-    // setShowSidebar(false);
   };
 
   const resetFilters = () => {
     setFilters({});
-    fetchChartData();
+    if(isEmptyObject(filters))
+      fetchChartData();
   };
 
-  //   console.log(visibleColumns)
 
   return (
     <div className="cost-explorer-container">

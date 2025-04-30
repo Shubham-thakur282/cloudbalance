@@ -1,5 +1,5 @@
 const TableSection = ({ tableData, selectedColumn }) => {
-  // console.log(tableData, selectedColumn);
+  
   return (
     <div className="table-section">
       <table>
