@@ -3,15 +3,20 @@ import {useParams, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import UserForm from "./UserForm";
 import { getUser ,updateUser} from "../../../service/usersApi";
+import { useSelector } from "react-redux";
 import "../../../scss/addUser.scss";
 
 const UpdateUser = () => {
-  const { id } = useParams(); 
 
-  const navigate = useNavigate();
+  const navigate =  useNavigate();
+  const role = useSelector((state) => state.role);
+  const { id } = useParams(); 
   const [initialValues, setInitialValues] = useState(null);
 
   useEffect(() => {
+    if(!["ADMIN","READONLY"].includes(role)){
+      navigate("/");
+    }
     const fetchUser = async () => {
       try {
         const res = await getUser(id);
@@ -25,13 +30,11 @@ const UpdateUser = () => {
         });
       } catch (error) {
         toast.error("Failed to fetch user");
-        // navigate("/dashboard/users");
       }
     };
 
     fetchUser();
   }, [navigate]);
-  console.log(initialValues);
 
   const handleUpdateUser = async (payload) => {
     try {
@@ -45,7 +48,7 @@ const UpdateUser = () => {
         toast.error("Update failed");
       }
     } catch (error) {
-        console.log(error);
+        // console.log(error);
       toast.error("Something went wrong");
     }
   };

@@ -3,7 +3,9 @@ package com.cloudBalance.Backend.service.Impl;
 import com.cloudBalance.Backend.DTO.JwtResponse;
 import com.cloudBalance.Backend.DTO.LoginDTO;
 import com.cloudBalance.Backend.DTO.LogoutTokenRequest;
+import com.cloudBalance.Backend.constants.Constants;
 import com.cloudBalance.Backend.entity.BlackListToken;
+import com.cloudBalance.Backend.exception.InvalidTokenException;
 import com.cloudBalance.Backend.security.userDetails.UserPrincipal;
 import com.cloudBalance.Backend.entity.Users;
 import com.cloudBalance.Backend.exception.BlackListTokenException;
@@ -11,6 +13,9 @@ import com.cloudBalance.Backend.repository.BlackListTokenRepository;
 import com.cloudBalance.Backend.repository.UserRepository;
 import com.cloudBalance.Backend.security.service.JWTService;
 import com.cloudBalance.Backend.service.AuthService;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.MalformedJwtException;
+import io.jsonwebtoken.UnsupportedJwtException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -54,7 +59,7 @@ public class AuthServiceImpl implements AuthService {
             String accessToken = jwtService.generateAccessToken(userPrincipal);
             String refreshToken = jwtService.generateRefreshToken(userPrincipal);
             Users userData = userRepository.findByEmail(userPrincipal.getUsername());
-            SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            SimpleDateFormat date = new SimpleDateFormat(Constants.DATE_FORMAT);
             userData.setLastLogin(date.format(new Date()));
             userRepository.save(userData);
             return new JwtResponse(
@@ -80,8 +85,9 @@ public class AuthServiceImpl implements AuthService {
                 UserPrincipal userPrincipal = (UserPrincipal) userDetailsService.loadUserByUsername(email);
                 return jwtService.generateAccessToken(userPrincipal);
             }
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token error " + e.getMessage()).toString();
+        } catch (ExpiredJwtException | MalformedJwtException | UnsupportedJwtException
+                 | IllegalArgumentException | BlackListTokenException e) {
+            throw new InvalidTokenException("Token is Invalid");
         }
         return null;
     }

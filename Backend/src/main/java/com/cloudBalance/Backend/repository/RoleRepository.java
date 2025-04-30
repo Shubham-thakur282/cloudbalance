@@ -16,5 +16,4 @@ public interface RoleRepository extends JpaRepository<Roles,Long> {
             FROM roles
             """, nativeQuery = true)
     List<RolesResponse> findAllRoles();
-    Roles getByRole(String Role);
 }

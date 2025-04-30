@@ -47,7 +47,6 @@ public class JwtFilter extends OncePerRequestFilter {
                     throw new BlackListTokenException("Token is Invalid");
                 }
                 String email = jwtService.getUsername(token);
-//                System.out.println(email);
                 UserPrincipal userPrincipal = (UserPrincipal)
                         userDetailsService.loadUserByUsername(email);
                 UsernamePasswordAuthenticationToken auth =

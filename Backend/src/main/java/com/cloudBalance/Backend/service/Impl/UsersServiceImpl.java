@@ -1,6 +1,7 @@
 package com.cloudBalance.Backend.service.Impl;
 
 import com.cloudBalance.Backend.DTO.*;
+import com.cloudBalance.Backend.constants.Constants;
 import com.cloudBalance.Backend.entity.Accounts;
 import com.cloudBalance.Backend.entity.Roles;
 import com.cloudBalance.Backend.security.userDetails.UserPrincipal;
@@ -58,7 +59,7 @@ public class UsersServiceImpl implements UsersService {
         }
         userEntity.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         Roles role = roleRepository.findById(userDTO.getRoleId())
-                .orElseThrow(() -> new RoleNotFound("Role with id " + userDTO.getRoleId() + " "));
+                .orElseThrow(() -> new RoleNotFound("Role with id " + userDTO.getRoleId() + " Not Found"));
 
         userEntity.setRole(role);
         userRepository.save(userEntity);
@@ -71,14 +72,14 @@ public class UsersServiceImpl implements UsersService {
         PageRequest pageable = PageRequest.of(page, size);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UserPrincipal user = (UserPrincipal) auth.getPrincipal();
-        //        Page<UsersView> u = userRepository.findAllUsers(pageable);
         return userRepository.findAllUsers(pageable, user.getUsername());
     }
 
     @Override
     public UserResponseDTO getUser(Long id) {
-        Users user = userRepository.findById(id).orElseThrow(() -> new UserNotFound("User with not found"));
-        log.info("User with {} found and details sent dto", id);
+        Users user = userRepository.findById(id).orElseThrow(() ->
+                new UserNotFound("User with not found"));
+        log.info("User with {} found and details sent using dto", id);
         return EntityDTOMapping.userEntityToResponseDTO(user);
     }
 
@@ -94,7 +95,7 @@ public class UsersServiceImpl implements UsersService {
 
         UserUpdateResponseDTO userUpdateResponseDTO = new UserUpdateResponseDTO();
         user.setName(userUpdateDTO.getName());
-        if (!userUpdateDTO.getAccountIds().isEmpty() && "CUSTOMER".equals(role.getRole().name())) {
+        if (!userUpdateDTO.getAccountIds().isEmpty() && Constants.CUSTOMER.equals(role.getRole().name())) {
             List<Accounts> accountsList = accRepo.findAllByAccountIdIn(userUpdateDTO.getAccountIds());
             accountsList.stream()
                             .map(a -> {
@@ -118,7 +119,6 @@ public class UsersServiceImpl implements UsersService {
         userUpdateResponseDTO.setName(user.getName());
         userUpdateResponseDTO.setEmail(user.getEmail());
         userUpdateResponseDTO.setRole(user.getRole().getRole().name());
-//        userUpdateResponseDTO = EntityDTOMapping.UserEntityToResponseDTO(user);
         return userUpdateResponseDTO;
     }
 

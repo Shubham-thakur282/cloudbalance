@@ -4,6 +4,7 @@ import ResourceTable from "./ResourceTable";
 import { getAccounts } from "../../../service/accountsApi";
 import { awsData } from "../../../service/awsApi";
 import { toast } from "react-toastify";
+import Loader from "../../utils/Loader";
 import "../../../scss/awsService.scss";
 
 
@@ -37,14 +38,16 @@ const AwsService = () => {
           const res = await awsData(selectedService.toLowerCase(), selectedAccount.accountId);
           setResourceData(res?.data || []);
         } catch (error) {
-          toast.info("Data not found");
+          toast.info(error?.response?.data || "Data not found");
           setResourceData([]);
         } finally {
           setIsLoading(false);
         }
       }
     };
-    fetchResources();
+    if(selectedAccount && selectedService)
+      fetchResources();
+
   }, [selectedService, selectedAccount]);
 
   const serviceOptions = ["EC2", "RDS", "ASG"];
@@ -84,7 +87,7 @@ const AwsService = () => {
       </div>
 
       {isLoading ? (
-        <>Loading...</>
+        <><Loader /></>
       ) : (
         <ResourceTable service={selectedService} data={resourceData} />
       )}

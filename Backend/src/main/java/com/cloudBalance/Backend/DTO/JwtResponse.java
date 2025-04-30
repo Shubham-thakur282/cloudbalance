@@ -10,7 +10,7 @@ import java.util.List;
 @Data
 public class JwtResponse {
 
-    public JwtResponse(String accessToken,String refreshToken, HttpStatus statusCode, UserPrincipal userPrincipal){
+    public JwtResponse(String accessToken, String refreshToken, HttpStatus statusCode, UserPrincipal userPrincipal) {
         this.accessToken = accessToken;
         this.refreshToken = refreshToken;
         this.statusCode = statusCode.value();
@@ -18,7 +18,6 @@ public class JwtResponse {
         this.role = userPrincipal.getRole().getRole().name();
         this.name = userPrincipal.getName();
         this.permissions = userPrincipal.getRole().getPermissions();
-
     }
 
     private String accessToken;

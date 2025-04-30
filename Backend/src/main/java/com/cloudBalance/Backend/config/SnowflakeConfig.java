@@ -32,9 +32,6 @@ public class SnowflakeConfig {
             }
         }
 
-        log.info("Snowflake JDBC URL: {}", connectionUrl);
-        log.info("Initializing Snowflake warehouse: {}", warehouse);
-
         dataSource.setJdbcUrl(connectionUrl);
         dataSource.setUsername(username);
         dataSource.setPassword(password);

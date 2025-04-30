@@ -34,7 +34,7 @@ public class UsersController {
     @PreAuthorize("hasAuthority('ADMIN')")
     @PatchMapping("/{id}")
     public ResponseEntity<UserUpdateResponseDTO> updateUser(@PathVariable Long id,
-                                                            @RequestBody UserUpdateDTO userUpdateDTO){
+                                                            @Valid @RequestBody UserUpdateDTO userUpdateDTO){
         return ResponseEntity.ok(usersService.updateUser(id, userUpdateDTO));
     }
 

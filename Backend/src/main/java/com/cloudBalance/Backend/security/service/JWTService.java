@@ -59,23 +59,11 @@ public class JWTService {
     }
 
     public boolean validateToken(String token) {
-//        try{
             Jwts.parser()
                     .verifyWith(getKey())
                     .build()
                     .parseSignedClaims(token);
             return true;
-//        }catch (MalformedJwtException e){
-//            log.error("Token have been changed {}",e.getMessage());
-//        }catch (ExpiredJwtException e){
-//            log.error("Token Expired {}",e.getMessage());
-////            throw new InvalidTokenException("Token has expired");
-//        } catch (UnsupportedJwtException e){
-//            log.error("JWT is unsupported {}",e.getMessage());
-//        }catch (IllegalArgumentException e){
-//            log.error("JWT claims String is empty {}",e.getMessage());
-//        }
-//        return false;
     }
 
     public String getUsername(String token){

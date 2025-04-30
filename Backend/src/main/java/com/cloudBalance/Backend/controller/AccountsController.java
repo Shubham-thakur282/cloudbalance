@@ -30,10 +30,4 @@ public class AccountsController {
         return ResponseEntity.ok(accountsService.getAccounts());
     }
 
-    @DeleteMapping("/{accountId}")
-    public ResponseEntity<?> removeAccount(){
-//        return ResponseEntity.ok(accountsService.removeAccount());
-    return null;
-    }
-
 }

@@ -2,6 +2,7 @@ package com.cloudBalance.Backend.service.Impl;
 
 import com.cloudBalance.Backend.DTO.AccountDTO;
 import com.cloudBalance.Backend.DTO.AccountsResponse;
+import com.cloudBalance.Backend.constants.Constants;
 import com.cloudBalance.Backend.entity.Accounts;
 import com.cloudBalance.Backend.security.userDetails.UserPrincipal;
 import com.cloudBalance.Backend.entity.Users;
@@ -45,7 +46,7 @@ public class AccountsServiceImpl implements AccountsService {
         UserPrincipal user = (UserPrincipal) SecurityContextHolder
                 .getContext().getAuthentication().getPrincipal();
 
-        if (user.getRole().getRole().name().equals("CUSTOMER")) {
+        if (user.getRole().getRole().name().equals(Constants.CUSTOMER)) {
             Users findUser = userRepository.findByEmail(user.getUsername());
             return findUser.getAccountsList()
                     .stream()

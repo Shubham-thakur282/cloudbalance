@@ -1,5 +1,4 @@
 import ReactFC from "react-fusioncharts";
-// import FusionTheme from "fusioncharts/themes"
 
 const formatMultiSeriesChartData = ({
   data,
@@ -10,7 +9,6 @@ const formatMultiSeriesChartData = ({
   const groupedByLabel = {};
   const uniqueDates = new Set();
 
-  // Organize data by label and date
   data.forEach((item) => {
     const label = item[labelKey] ?? "Unknown";
     const date = item[dateKey];

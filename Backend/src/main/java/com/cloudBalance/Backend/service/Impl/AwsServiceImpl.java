@@ -1,7 +1,9 @@
 package com.cloudBalance.Backend.service.Impl;
 
+import com.cloudBalance.Backend.exception.handleAwsClientException;
 import com.cloudBalance.Backend.utils.AwsUtils;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import com.cloudBalance.Backend.DTO.AsgResponse;
 import com.cloudBalance.Backend.DTO.Ec2Response;
@@ -27,12 +29,15 @@ import software.amazon.awssdk.services.rds.RdsClient;
 import software.amazon.awssdk.services.rds.model.DBInstance;
 import software.amazon.awssdk.services.rds.model.DescribeDbInstancesRequest;
 import software.amazon.awssdk.services.rds.model.DescribeDbInstancesResponse;
+import software.amazon.awssdk.services.sts.model.StsException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class AwsServiceImpl implements AwsService {
     private final AssumeRoleService assumeRoleService;
     private final AccountRepository accountRepository;
@@ -71,8 +76,10 @@ public class AwsServiceImpl implements AwsService {
                 });
             }
             return responseList;
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        }
+        catch (StsException e){
+            log.info("here {}",e.awsErrorDetails().errorCode());
+            throw new handleAwsClientException(e.awsErrorDetails().errorCode());
         }
     }
 
@@ -100,8 +107,10 @@ public class AwsServiceImpl implements AwsService {
                 rdsDetailsList.add(details);
             }
             return rdsDetailsList;
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        }
+        catch (StsException e){
+            log.info("here {}",e.awsErrorDetails().errorCode());
+            throw new handleAwsClientException(e.awsErrorDetails().errorCode());
         }
     }
 
@@ -129,8 +138,9 @@ public class AwsServiceImpl implements AwsService {
                 asgResponseList.add(details);
             }
             return asgResponseList;
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        }catch (StsException e){
+            log.info("here {}",e.awsErrorDetails().errorCode());
+            throw new handleAwsClientException(e.awsErrorDetails().errorCode());
         }
     }
 }

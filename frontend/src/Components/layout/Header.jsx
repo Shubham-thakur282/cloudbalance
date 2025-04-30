@@ -11,17 +11,17 @@ import "../../scss/header.scss";
 const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const {name,refreshToken,accessToken } = useSelector((state) => state);
+  const name = useSelector((state) => state.name);
+  const refreshToken = useSelector((state) =>  state.refreshToken);
   const handleClick = async () => {
-    
     try {
-        navigate("/login");
-        const res = logoutUser({refreshToken,accessToken});
-        dispatch(logout());
-        toast.success(`${name} logged out`);
-        
+      navigate("/login");
+      const accessToken = localStorage.getItem("accessToken");
+      const res = logoutUser({ refreshToken, accessToken });
+      dispatch(logout());
+      toast.success(`${name} logged out`);
     } catch (error) {
-        toast.error("Error Occured")
+      toast.error("Error Occured");
     }
   };
   return (
@@ -42,7 +42,10 @@ const Header = () => {
               </div>
             </div>
             <div className="header-right-btn">
-              <button onClick={handleClick}><LogoutIcon />Logout</button>
+              <button onClick={handleClick}>
+                <LogoutIcon />
+                Logout
+              </button>
             </div>
           </div>
           <div></div>

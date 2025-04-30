@@ -17,7 +17,6 @@ public class RolesServiceImpl implements RolesService {
 
     @Override
     public List<RolesResponse> getRoles() {
-        log.info("api call has reached in service");
         return roleRepository.findAllRoles();
     }
 }

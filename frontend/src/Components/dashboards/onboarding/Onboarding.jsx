@@ -8,9 +8,21 @@ import {
 import StepRenderer from "./StepRendrer";
 import { toast } from "react-toastify";
 import { addAccount } from "../../../service/accountsApi";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import "../../../scss/onboarding.scss";
 
+
 const Onboarding = () => {
+  const navigate = useNavigate();
+  const role = useSelector(state => state.role);
+
+  useEffect(()=>{
+    if(!["ADMIN"].includes(role)){
+      navigate("/");
+    }
+  },[role,navigate])
+
   const [step, setStep] = useState(0);
   const [formData, setFormData] = useState({
     arn: "",
@@ -34,11 +46,11 @@ const Onboarding = () => {
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-    console.log(formData);
+    // console.log(formData);
   };
 
   const handleOnboardClick = () => {
-    console.log("clicked");
+    // console.log("clicked");
     setStep(0);
   };
 
@@ -53,7 +65,7 @@ const Onboarding = () => {
     e.preventDefault();
     try {
       const res = await addAccount(formData);
-      console.log(res);
+      // console.log(res);
       if (res.status === 200) {
         toast.success("Account onboarding successfull");
         setFormData({
@@ -66,7 +78,7 @@ const Onboarding = () => {
         toast.error(res?.message);
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       toast.error(error?.response?.data);
     }
   };
@@ -121,7 +133,7 @@ const Onboarding = () => {
             <button
               onClick={(e) => {
                 if (isSubmit) {
-                  console.log("Submitting form data:", formData);
+                  // console.log("Submitting form data:", formData);
                   handleSubmit(e);
                 } else {
                   handleStepChange();

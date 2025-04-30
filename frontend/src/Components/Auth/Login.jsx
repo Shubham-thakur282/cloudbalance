@@ -38,13 +38,10 @@ const Login = () => {
 
     try {
       const res = await loginUser(user, dispatch);
-      console.log("response came from api");
-      console.log(res);
       dispatch(login(res?.data));
       toast.success("logged in successfully");
       navigate("/dashboard");
     } catch (error) {
-      console.log(error);
       toast.error(error?.response?.data || error?.message);
     }
   };

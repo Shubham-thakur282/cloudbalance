@@ -13,7 +13,9 @@ import { getAccounts } from "../../../service/accountsApi";
 import { toast } from "react-toastify";
 import MenuOpenIcon from "@mui/icons-material/MenuOpen";
 import { getData, getGroupByColumns } from "../../../service/costExplorerApi";
+import Loader from "../../utils/Loader";
 import "../../../scss/costExplorer.scss";
+import { isEmptyObject } from "../../../utils";
 
 charts(FusionCharts);
 
@@ -26,10 +28,10 @@ const CostExplorer = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [moreColumns, setMoreColumns] = useState([]);
   const [showSidebar, setShowSidebar] = useState(false);
-  const [filters,setFilters] = useState({});
+  const [filters, setFilters] = useState({});
   const [chartData, setChartData] = useState([]);
   const [tableData, setTableData] = useState([]);
-  const [isDataLoading,setIsDataLoading] = useState(true);
+  const [isDataLoading, setIsDataLoading] = useState(true);
 
   useEffect(() => {
     const fetchAccountDetails = async () => {
@@ -47,7 +49,6 @@ const CostExplorer = () => {
     const fetchColumnDetails = async () => {
       try {
         const res = await getGroupByColumns();
-        // console.log(res);
         setColumns(res?.data || []);
         setSelectedColumn(res?.data?.[0] || null);
         setVisibleColumns(res?.data.slice(0, 7));
@@ -59,17 +60,18 @@ const CostExplorer = () => {
       }
     };
 
-    fetchAccountDetails();
     fetchColumnDetails();
+    fetchAccountDetails();
   }, []);
 
   useEffect(() => {
-    fetchChartData();
+    if (!isEmptyObject(selectedAccount) && !isEmptyObject(selectedColumn)) {
+      fetchChartData();
+    }
   }, [selectedAccount, selectedColumn]);
 
   const fetchChartData = async () => {
     try {
-      console.log(filters);
       setIsDataLoading(true);
       const payload = {
         accountId: selectedAccount.accountId,
@@ -77,11 +79,12 @@ const CostExplorer = () => {
         filters: filters,
       };
       const res = await getData(payload);
-      console.log(res);
+      // console.log(res);
       setChartData(res?.data?.chartData);
       setTableData(res?.data?.data);
       setIsDataLoading(false);
     } catch (error) {
+      // toast.error(error.)
       console.log(error);
     }
   };
@@ -100,21 +103,20 @@ const CostExplorer = () => {
   const handleFilterChange = (key, value, checked) => {
     setFilters((prev) => {
       const currentValues = prev[key] || [];
-  
+
       let updatedValues;
       if (checked) {
         updatedValues = [...currentValues, value];
       } else {
         updatedValues = currentValues.filter((v) => v !== value);
       }
-  
+
       return {
         ...prev,
         [key]: updatedValues,
       };
     });
   };
-  
 
   const applyFilters = () => {
     fetchChartData();
@@ -155,32 +157,36 @@ const CostExplorer = () => {
                     <MenuOpenIcon />
                   </button>
                 </div>
-                { isDataLoading ? <div>Loading Data</div> :
-                <ChartSection
-                  chartData={chartData}
-                  selectedColumn={selectedColumn}
-                />
-                }
+                {isDataLoading ? (
+                  <Loader />
+                ) : (
+                  <ChartSection
+                    chartData={chartData}
+                    selectedColumn={selectedColumn}
+                  />
+                )}
               </div>
               <div className="table-div">
-              { isDataLoading ? <div>Loading Data</div> :
-                <TableSection
-                tableData={tableData}
-                selectedColumn={selectedColumn}
-                />
-              }
+                {isDataLoading ? (
+                  <Loader />
+                ) : (
+                  <TableSection
+                    tableData={tableData}
+                    selectedColumn={selectedColumn}
+                  />
+                )}
               </div>
             </div>
 
             {showSidebar && (
               <div className="filter-sidebar-wrapper">
-                <FilterSidebar 
-                filters={filters}
-                columns={columns}
-                handleFilterChange={handleFilterChange}
-                applyFilters={applyFilters}
-                resetFilters={resetFilters}
-                setShowSidebar={setShowSidebar}
+                <FilterSidebar
+                  filters={filters}
+                  columns={columns}
+                  handleFilterChange={handleFilterChange}
+                  applyFilters={applyFilters}
+                  resetFilters={resetFilters}
+                  setShowSidebar={setShowSidebar}
                 />
               </div>
             )}

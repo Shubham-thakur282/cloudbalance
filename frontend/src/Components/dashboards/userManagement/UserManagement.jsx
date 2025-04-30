@@ -1,14 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { getUsers, removeUser } from "../../../service/usersApi";
 import { toast } from "react-toastify";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from '@mui/icons-material/Delete';
+import Loader from "../../utils/Loader";
 import "../../../scss/userManagement.scss";
 
+
 const UserManagement = () => {
+  const navigate =  useNavigate();
   const role = useSelector((state) => state.role);
+  if(!["ADMIN","READONLY"].includes(role)){
+    navigate("/");
+  }
   const [data, setData] = useState({});
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -50,7 +56,7 @@ const UserManagement = () => {
       }
     } catch (error) {
       toast.error("Error occured");
-      console.log(error);
+      // console.log(error);
     }
   }
 
@@ -88,7 +94,7 @@ const UserManagement = () => {
             <tbody>
               {loading ? (
                 <tr>
-                  <td colSpan="6" style={{textAlign : "center"}} >Loading...</td>
+                  <td colSpan="6" style={{textAlign : "center"}} ><Loader /></td>
                 </tr>
               ) : users.length > 0 ? (
                 users.map((item, index) => (

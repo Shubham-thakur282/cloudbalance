@@ -1,13 +1,21 @@
-
-import React from "react";
+import React, { useEffect } from "react";
 import UserForm from "./UserForm";
 import { addUser } from "../../../service/usersApi";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import "../../../scss/addUser.scss";
+
 
 const AddUser = () => {
   const navigate = useNavigate();
+  const role = useSelector((state) => state.role);
+  
+  useEffect(()=>{
+    if (!["ADMIN", "READONLY"].includes(role)) {
+      navigate("/");
+    }
+  },[navigate,role]);
 
   const handleAddUser = async (payload) => {
     try {
