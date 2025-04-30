@@ -16,7 +16,6 @@ import AddUser from "./Components/dashboards/userManagement/AddUser";
 import UpdateUser from "./Components/dashboards/userManagement/UpdateUser";
 import Onboarding from "./Components/dashboards/onboarding/Onboarding";
 import AwsService from "./Components/dashboards/awsService/AwsService";
-import GlobalInterceptor from "./Components/errors/GlobalInterceptor";
 import CostExplorer from "./Components/dashboards/costExplorer/CostExplorer";
 
 function App() {
@@ -51,7 +50,6 @@ function App() {
 
         <Route path="*" element={<Error404 />} />
       </Routes>
-      {/* <GlobalInterceptor /> */}
       <ToastContainer position="top-right" autoClose={3000} theme="colored" />
     </Router>
   );

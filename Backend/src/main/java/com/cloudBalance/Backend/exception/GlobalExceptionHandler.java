@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import software.amazon.awssdk.core.exception.SdkException;
+import software.amazon.awssdk.services.autoscaling.model.AutoScalingException;
 import software.amazon.awssdk.services.ec2.model.Ec2Exception;
+import software.amazon.awssdk.services.rds.model.RdsException;
 import software.amazon.awssdk.services.sts.model.StsException;
 
 @Slf4j
@@ -103,6 +105,16 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Ec2Exception.class)
     public ResponseEntity<String> ec2Exception(Ec2Exception ex){
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Unable to get Ec2 Data");
+    }
+
+    @ExceptionHandler(AutoScalingException.class)
+    public ResponseEntity<String> asgException(AutoScalingException ex){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Unable to get Asg Data");
+    }
+
+    @ExceptionHandler(RdsException.class)
+    public ResponseEntity<String> rdsException(RdsException ex){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Unable to get Rds Data");
     }
 
     @ExceptionHandler(SdkException.class)
