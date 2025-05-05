@@ -10,6 +10,12 @@
     justify-content: space-between;
     align-items: center;
   }
+  .dashboard-header-left{
+    img{
+      height: 60px;
+      // width: 150px;
+    }
+  }
 
   .dashboard-header-right {
     .header-right-wrapper {

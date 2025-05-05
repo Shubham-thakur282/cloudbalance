@@ -45,6 +45,11 @@
     align-items: center;
     gap: 10px;
     width: 400px;
+    .ck-logo{
+        img{
+            height: 100px;
+        }
+    }
 }
 
 .login-form{

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { logoutUser } from "../../service/usersApi";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LogoutIcon from "@mui/icons-material/Logout";
-import logo from "../../assets/Cloudkeeper.svg";
+import logo from "../../assets/cloudbalance.png";
 import { toast } from "react-toastify";
 import "../../scss/header.scss";
 

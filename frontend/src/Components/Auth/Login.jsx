@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import InputBox from "./InputBox";
-import logo from "../../assets/Cloudkeeper.svg";
+import logo from "../../assets/cloudbalance.png";
 import Footer from "../footer/Footer";
 import { loginUser } from "../../service/auth";
 import { useNavigate } from "react-router-dom";
