@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -27,5 +28,5 @@ public class UserDTO {
     @NotNull(message = "Password cannot be null")
     private String password;
 
-    private List<Long> accountIds;
+    private List<Long> accountIds =  new ArrayList<>();
 }

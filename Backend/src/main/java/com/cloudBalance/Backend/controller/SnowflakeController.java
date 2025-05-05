@@ -21,7 +21,6 @@ public class SnowflakeController {
 
     @GetMapping
     public ResponseEntity<List<SnowflakeColumnsView>> getSnowflakeColumns() {
-        log.info("In test controller");
         return ResponseEntity.ok(snowflakeService.getColumns());
     }
 
@@ -36,6 +35,5 @@ public class SnowflakeController {
         log.info("Request for cost explorer data");
         return ResponseEntity.ok(snowflakeService.getCostExplorerData(request));
     }
-
 
 }

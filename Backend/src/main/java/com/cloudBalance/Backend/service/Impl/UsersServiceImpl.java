@@ -48,7 +48,7 @@ public class UsersServiceImpl implements UsersService {
         }
 
         userEntity = EntityDTOMapping.userDTOToEntity(userDTO);
-        if (!userDTO.getAccountIds().isEmpty()) {
+        if (userDTO.getAccountIds() != null && !userDTO.getAccountIds().isEmpty()) {
             List<Accounts> accountsList = accRepo.findAllByAccountIdIn(userDTO.getAccountIds());
             accountsList.stream().map((a) ->{
                a.setIsOrphan(false);
@@ -95,7 +95,7 @@ public class UsersServiceImpl implements UsersService {
 
         UserUpdateResponseDTO userUpdateResponseDTO = new UserUpdateResponseDTO();
         user.setName(userUpdateDTO.getName());
-        if (!userUpdateDTO.getAccountIds().isEmpty() && Constants.CUSTOMER.equals(role.getRole().name())) {
+        if (userUpdateDTO.getAccountIds() != null && !userUpdateDTO.getAccountIds().isEmpty() && Constants.CUSTOMER.equals(role.getRole().name())) {
             List<Accounts> accountsList = accRepo.findAllByAccountIdIn(userUpdateDTO.getAccountIds());
             accountsList.stream()
                             .map(a -> {

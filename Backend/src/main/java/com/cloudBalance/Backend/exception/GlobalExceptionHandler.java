@@ -11,7 +11,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import software.amazon.awssdk.core.exception.SdkException;
 import software.amazon.awssdk.services.autoscaling.model.AutoScalingException;
 import software.amazon.awssdk.services.ec2.model.Ec2Exception;
@@ -114,7 +113,8 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(RdsException.class)
     public ResponseEntity<String> rdsException(RdsException ex){
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Unable to get Rds Data");
+        log.info("{}",ex.awsErrorDetails().errorCode());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.awsErrorDetails().errorCode());
     }
 
     @ExceptionHandler(SdkException.class)

@@ -11,7 +11,6 @@ public class EntityDTOMapping {
         Users user = new Users();
         user.setEmail(userDTO.getEmail());
         user.setName(userDTO.getName());
-//        user.setRole(userDTO.getRole());
         return user;
     }
 
@@ -20,12 +19,6 @@ public class EntityDTOMapping {
         userUpdateResponseDTO.setName(user.getName());
         userUpdateResponseDTO.setEmail(user.getEmail());
         userUpdateResponseDTO.setRole(user.getRole().getRole().name());
-//        if (!user.getAccountsList().isEmpty()) {
-//            userUpdateResponseDTO.setAccounts(user.getAccountsList()
-//                    .stream()
-//                    .map(EntityDTOMapping::accEntityToResponse)
-//                    .toList());
-//        }
         return userUpdateResponseDTO;
     }
 
